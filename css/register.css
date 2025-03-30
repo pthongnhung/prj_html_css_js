@@ -1,0 +1,52 @@
+.form {
+    width: 1600px;
+    height: 1007px;
+    margin-top: -15px;
+    margin-left: -7px;
+    background-color: white;
+}
+
+.register {
+    width: 533px;
+    height: 566px;
+    background-color: #fdfdfd;
+    margin-left: 500px;
+    text-align: center;
+    margin-top: 80px;
+}
+
+input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 472px;
+    height: 63px;
+    margin-left: 30px;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 9px;
+    border: 1px solid #E4E4E7;
+}
+
+.btnRegister {
+    background-color: #0D6EFD;
+    margin-top: 30px;
+}
+
+.btnRegister::placeholder {
+    color: white;
+}
+
+.confirm {
+    width: 560px;
+    height: 25px;
+    font-size: 18px;
+    margin-top: 15px;
+}
+a{
+    color: #0D6EFD;
+    text-decoration: none;
+}
+span{
+    opacity: 0.6;
+}

@@ -1,0 +1,160 @@
+body {
+    width: 1920px;
+    height: 800px;
+    background-color: black;
+
+}
+
+.header {
+    width: 1320px;
+    height: 15px;
+    display: flex;
+    justify-content: space-around;
+    gap: 500px;
+    margin-top: 40px;
+}
+
+.header-left {
+    color: white;
+    font-size: 20px;
+    margin-left: 50px;
+}
+
+.header-right {
+    display: flex;
+    gap: 15px;
+    font-size: 20px;
+}
+
+.header a {
+    color: white;
+    text-decoration: none;
+}
+
+.main {
+    background-color: #FFFFFF;
+    width: 1920px;
+    height: 679px;
+    margin-left: -8px;
+}
+
+.container {
+    width: 800px;
+    height: 679px;
+    margin-left: 312px;
+    background-color: #FFFFFF;
+}
+
+.main-top {
+    display: flex;
+    gap: 350px;
+    margin-left: 20px;
+}
+
+.main-top input::placeholder {
+    padding-left: 12px;
+}
+
+.main-top input {
+    width: 270px;
+    height: 30px;
+    border-radius: 6px;
+    border: 1px solid #DEE2E6;
+}
+
+.main-top button {
+    width: 130px;
+    height: 30px;
+    background-color: #0D6EFD;
+    border-radius: 6px;
+    border: 1px;
+    color: white;
+}
+
+table {
+    border-collapse: collapse;
+    width: 780px;
+    margin-left: 10px;
+    text-align: left;
+}
+
+.edit-btn {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 80px;
+    height: 32px;
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 80px;
+    height: 32px;
+}
+
+.detail-btn {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 80px;
+    height: 32px;
+}
+
+.center {
+    text-align: center;
+}
+.pagination {
+    width: 1400px;
+    height: 40px;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    margin-left: -10px;
+    
+}
+.changePage{
+    background-color: #FFFFFF;
+    height: 80px;
+    margin-left: -8px;
+}
+.pagination a {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 5px;
+    background-color: #ddd;
+    color: black;
+    text-decoration: none;
+    border-radius: 3px;
+    
+}
+.pagination img {
+    margin: 0 5px;
+    background-color: #FFFFFF;
+    color: black;
+    text-decoration: none;
+    border-radius: 3px;
+    width: 15px;
+}
+.footer{
+    color: white;
+    width: 1400px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
