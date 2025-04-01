@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quản lí dự án chi tiết</title>
     <link rel="stylesheet" href="../css/details-prj.css">
 </head>
 <body>
@@ -142,6 +142,55 @@
             </div>
             <div class="footer">
                 <p>&copy;Quan Ly Du An Nhom. All rights reserved</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup">
+        <div class="popup-header">
+            <h2>Thêm/Sửa nhiệm vụ</h2>
+            <span class="close-btn">&times;</span>
+        </div>
+        <div class="popup-body">
+            <div class="form-group">
+                <label for="taskName">Tên nhiệm vụ</label>
+                <input type="text" id="taskName" value="Soạn thảo đề cương dự án">
+            </div>
+            <div class="form-group">
+                <label for="assignee">Người phụ trách</label>
+                <select id="assignee">
+                    <option value="">Chọn người phụ trách</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="status">Trạng thái</label>
+                <select id="status">
+                    <option value="">Chọn trạng thái nhiệm vụ</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="startDate">Ngày bắt đầu</label>
+                <input type="date" id="startDate">
+            </div>
+            <div class="form-group">
+                <label for="dueDate">Hạn cuối</label>
+                <input type="date" id="dueDate">
+            </div>
+            <div class="form-group">
+                <label for="priority">Độ ưu tiên</label>
+                <select id="priority">
+                    <option value="">Chọn độ ưu tiên</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="progress">Tiến độ</label>
+                <select id="progress">
+                    <option value="">Chọn tiến độ</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button class="cancel-btn">Huỷ</button>
+                <button class="save-btn">Lưu</button>
             </div>
         </div>
     </div>

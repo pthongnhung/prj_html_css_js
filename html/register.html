@@ -1,25 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Đăng Ký</title>
     <link rel="stylesheet" href="../css/register.css">
 </head>
+
 <body>
     <div class="form">
+        <h1>Đăng Ký</h1>
         <div class="register">
-            <h1>Dang Ky</h1>
-            <div>
-                <input type="text" placeholder="Ho va ten"> <br>
-                <input type="text" placeholder="Dia chi email"> <br>
-                <input type="text" placeholder="Mat khau"> <br>
-                <input type="text" placeholder="Xac nhan mat khau">
-            </div>
-            <input type="text" placeholder="Dang Ky" class="btnRegister">
-            <div class="confirm"><span>Da co tai khoan?</span> <a href="">Dang nhap</a></div>
+            <form id="registerForm">
+                <div>
+                    <input type="text" id="fullName" placeholder="Họ và tên">
+                    <p class="error-message" id="fullNameError"></p>
+                </div>
+                <div>
+                    <input type="email" id="email" placeholder="Địa chỉ email">
+                    <p class="error-message" id="emailError"></p>
+                </div>
+                <div class="password-container">
+                    <input type="password" id="password" placeholder="Mật khẩu">
+                    <p class="error-message" id="passwordError"></p>
+                </div>
+                <div>
+                    <input type="password" id="confirmPassword" placeholder="Xác nhận mật khẩu">
+                    <p class="error-message" id="confirmPasswordError"></p>
+                </div>
+                <button type="submit" class="btnRegister">Đăng Ký</button>
+            </form>
+            <div class="confirm"><span>Đã có tài khoản?</span> <a href="">Đăng nhập</a></div>
         </div>
+        
     </div>
+    <script src="../js/register.js"></script>
 </body>
+
 </html>

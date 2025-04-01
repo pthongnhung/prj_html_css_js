@@ -1,11 +1,14 @@
+body{
+    height:700px ;
+}
 .form {
     width: 1920px;
-    height: 750px;
+    height: 600px;
 }
 
 .container {
     width: 1920px;
-    height: 750px;
+    height: 950px;
     background-color: #FFFFFF;
 }
 
@@ -25,7 +28,7 @@
     color: #FFFFFF;
     margin-left: 100px;
     display: flex;
-    gap: 920px;
+    gap: 900px;
     align-items: center;
 }
 
@@ -35,9 +38,7 @@
     color: white;
 }
 
-.header-left {
-    margin-left: 20px;
-}
+
 
 a {
     color: white;
@@ -48,7 +49,7 @@ a {
     width: 1320px;
     height: 725px;
     background-color: #FFFFFF;
-    margin-left: 110px;
+    margin-left: 90px;
     font-size: 18px;
 }
 
@@ -153,7 +154,7 @@ a {
 }
 
 table {
-    width: 1260px;
+    width: 1280px;
     border-collapse: collapse;
 }
 
@@ -219,6 +220,7 @@ table {
 .footer {
     width: 1480px;
     height: 70px;
+    margin-top: 30px;
     background-color: #212529;
     font-size: 18px;
     margin-left: -8px;
@@ -226,4 +228,72 @@ table {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.popup {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    padding: 20px;
+    position: relative;
+    bottom: 600px;
+    left: 500px;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.popup-header h2 {
+    margin: 0;
+}
+
+.close-btn {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+    width: calc(100% - 12px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.cancel-btn {
+    background-color: #ddd;
+    color: black;
+}
+
+.save-btn {
+    background-color: #007bff;
+    color: white;
 }

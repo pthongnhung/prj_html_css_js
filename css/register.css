@@ -1,18 +1,25 @@
-.form {
-    width: 1600px;
-    height: 1007px;
-    margin-top: -15px;
-    margin-left: -7px;
-    background-color: white;
+body {
+    background-color: #F8FAFC;
 }
-
+.form {
+    width: 1500px;
+    height: 1007px;
+}
+h1 {
+    text-align: center;
+    position: relative;
+    top:30px;
+}
 .register {
     width: 533px;
-    height: 566px;
-    background-color: #fdfdfd;
+    height: 484px;
+    background-color: #FFFFFF;
+    border: 1px solid #E4E4E7;
+    border-radius: 7px;
     margin-left: 500px;
     text-align: center;
-    margin-top: 80px;
+    margin-top: 50px;
+    padding-top:50px;
 }
 
 input {
@@ -31,11 +38,13 @@ input {
 .btnRegister {
     background-color: #0D6EFD;
     margin-top: 30px;
-}
-
-.btnRegister::placeholder {
+    width: 300px;
+    height: 50px;
+    border: none;
+    border-radius: 7px;
     color: white;
 }
+
 
 .confirm {
     width: 560px;
@@ -50,3 +59,28 @@ a{
 span{
     opacity: 0.6;
 }
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+/* .password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    flex: 1;
+    padding-right: 40px;
+}
+
+.password-container button {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+} */

@@ -1,27 +1,40 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Đăng Nhập</title>
     <link rel="stylesheet" href="../css/login.css">
 </head>
+
 <body>
     <div class="form">
-        <h1>Dang nhap</h1>
+        <h1>Đăng nhập</h1>
         <div class="login">
-            <label for="">Email</label> <br>
-            <input type="" placeholder="Dia chi email"> <br>
-            <label for="">Mat khau</label> <br>
-            <input type="text" placeholder="Mat khau">
-            <input type="text" placeholder="Dang nhap" class="btnLogin">
+            <form id="loginForm">
+                <label>Email</label> <br>
+                <input type="email" id="email" placeholder="Địa chỉ email">
+                <p class="error-message" id="emailError"></p>
+
+                <label>Mật khẩu</label> <br>
+                <div class="password-container">
+                    <input type="password" id="password" placeholder="Mật khẩu">
+                </div>
+                <p class="error-message" id="passwordError"></p>
+
+                <button type="submit" class="btnLogin">Đăng nhập</button>
+            </form>
             <div class="confirm">
-                <span>Chua co tai khoan dang nhap?</span>
-                <a href="">Dang ky</a>
+                <span>Chưa có tài khoản?</span>
+                <a href="">Đăng ký</a>
             </div>
         </div>
-        
     </div>
+
+    <script src="../js/login.js"></script>
 </body>
+
 </html>

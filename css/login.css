@@ -1,8 +1,11 @@
+body {
+    background-color: #F8FAFC;
+}
+
 .form {
     width: 1600px;
     height: 965px;
-    background-color: #F8FAFC;
-    margin-top: 80px;
+    margin-top: 50px;
 }
 
 h1 {
@@ -10,14 +13,16 @@ h1 {
 }
 
 .login {
-    width: 533px;
+    width: 480px;
     height: 484px;
-    margin-left: 534px;
-    background-color: #F8FAFC;
+    margin-left: 500px;
+    background-color: #FFFFFF;
+    padding: 25PX;
     display: flex;
     flex-direction: column;
-    gap:4px;
-
+    gap: 1px;
+    border-radius: 7px;
+    border: 1px solid #E4E4E7;
 }
 
 .login input {
@@ -28,22 +33,43 @@ h1 {
     text-align: center;
     font-size: 15px;
 }
-.btnLogin{
-    margin-top: 60px;
+
+.btnLogin {
+    margin-top: 100px;
     background-color: #0D6EFD;
 }
+
 .btnLogin::placeholder {
     color: white;
 }
-.confirm{
+
+.confirm {
     margin-top: 10px;
     margin-left: 145px;
-    
+
 }
-a{
+
+a {
     text-decoration: none;
     color: #0D6EFD;
 }
-span{
+
+span {
     opacity: 0.6;
+}
+
+button {
+    background-color: #0D6EFD;
+    width: 330px;
+    height: 60px;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    margin-left: 80px;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
 }
