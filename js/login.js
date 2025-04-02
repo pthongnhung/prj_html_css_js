@@ -41,3 +41,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Chuyển sang trang đăng ký
+document.getElementById("registerBtn").addEventListener("click", function () {
+    window.location = "register.html"
+})
+
+
