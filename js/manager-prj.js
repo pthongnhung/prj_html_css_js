@@ -8,6 +8,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const closeEditBtn = document.querySelector(".modal .close");
     const closeDeleteBtn = document.querySelector(".popup .close");
+    const cancelDelete = document.querySelector(".popup .cancelDeleteBtn");
+    const cancelEdit = document.querySelector(".modal .cancel-btn");
+    
 
     // Mở modal chỉnh sửa
     editButtons.forEach(button => {
@@ -21,6 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
         editModal.classList.remove("show");
     });
 
+    // Đóng modal xóa khi ấn nút hủy
+    cancelEdit.addEventListener("click", function () {
+        editModal.classList.remove("show");
+    })
+
     // Mở popup xoá
     deleteButtons.forEach(button => {
         button.addEventListener("click", function () {
@@ -32,6 +40,12 @@ document.addEventListener("DOMContentLoaded", function () {
     closeDeleteBtn.addEventListener("click", function () {
         deletePopup.classList.remove("show");
     });
+
+
+    // Đóng popup xóa khi ấn nút hủy
+    cancelDelete.addEventListener("click", function () {
+        deletePopup.classList.remove("show");
+    })
 
     // Chuyển sang màn hình chi tiết khi click vào "Chi tiết"
     detailButtons.forEach(button => {
@@ -98,3 +112,12 @@ document.addEventListener("DOMContentLoaded", function () {
 document.getElementById("logoutBtn").addEventListener("click", function () {
     window.location.href = "login.html"; 
 });
+
+
+function openModal() {
+    document.getElementById("addModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("addModal").style.display = "none";
+}

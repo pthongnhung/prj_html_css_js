@@ -8,7 +8,7 @@ body{
 
 .container {
     width: 1920px;
-    height: 950px;
+    height: 750px;
     background-color: #FFFFFF;
 }
 
@@ -37,8 +37,6 @@ body{
     gap: 20px;
     color: white;
 }
-
-
 
 a {
     color: white;
@@ -74,10 +72,10 @@ a {
 
 .line1 {
     display: flex;
-    gAP: 20px;
+    gap: 20px;
 }
 
-.line1 input {
+.line1 button {
     width: 145px;
     height: 30px;
     border: 1px solid #6C757D;
@@ -158,7 +156,7 @@ table {
     border-collapse: collapse;
 }
 
-.delete-btn {
+.delete-task-btn {
     background-color: red;
     color: white;
     border: none;
@@ -250,6 +248,7 @@ table {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
+
 .modal-header {
     display: flex;
     justify-content: space-between;
@@ -283,6 +282,7 @@ table {
     display: none;
 }
 
+/* Modal sửa  */
 .modal-footer {
     display: flex;
     gap:10px;
@@ -299,6 +299,159 @@ table {
 }
 
 .save-btn {
+    background: blue;
+    border-radius: 6px;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Modal xóa */
+.delete-task-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Nội dung popup */
+.delete-task-popup-content {
+    background: white;
+    width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 570px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Header */
+.delete-task-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-task-popup-header h2 {
+    margin: 0;
+}
+
+.close-delete-task-popup {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* Body */
+.delete-task-popup-body {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+/* Footer */
+.delete-task-popup-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.cancel-delete-task-btn {
+    background: #6c757d;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.confirm-delete-task-btn {
+    background: #dc3545;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-task-popup.show {
+    display: flex;
+}
+
+/* Modal thêm nhiệm vụ */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    position: relative;
+    margin-left:500px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-popup {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.popup-body label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.popup-body input,
+.popup-body select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.error-text {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
+.popup-footer {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.dismiss-btn {
+    background: #ccc;
+    border-radius: 6px;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.confirm-btn {
     background: blue;
     border-radius: 6px;
     color: white;

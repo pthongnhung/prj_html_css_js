@@ -22,7 +22,7 @@
         <div class="container">
             <h2>Quản lý dự án nhóm</h2>
             <div class="main-top">
-                <div><button>+ Thêm dự án</button></div>
+                <div><button class="btn btn-primary" onclick="openModal()">+ Thêm dự án</button></div>
                 <div><input type="text" placeholder="Tìm kiếm dự án"></div>
             </div>
             <div class="main-bottom">
@@ -135,7 +135,7 @@
     <div class="modal" id="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Thêm/Sửa dự án</h2>
+                <h2>Sửa dự án</h2>
                 <span class="close">&times;</span>
             </div>
             <div class="modal-body">
@@ -149,6 +149,33 @@
             <div class="modal-footer">
                 <button class="cancel-btn">Hủy</button>
                 <button class="save-btn">Lưu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal thêm dự án -->
+    <div class="addModal" id="addModal">
+        <div class="modal-dialog">
+            <div class="addModal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm dự án</h5>
+                    <button type="button" class="btn-close" onclick="closeModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Tên dự án</label>
+                        <input type="text" id="projectName" class="form-control">
+                        <div id="errorText" class="error-text d-none">Tên danh mục đã tồn tại</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mô tả dự án</label>
+                        <textarea id="projectDesc" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Huỷ</button>
+                    <button type="button" class="btn btn-primary" onclick="saveProject()">Lưu</button>
+                </div>
             </div>
         </div>
     </div>
