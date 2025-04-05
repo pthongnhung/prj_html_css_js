@@ -459,3 +459,98 @@ table {
     padding: 10px;
     cursor: pointer;
 }
+
+/* Modal thêm thành viên */
+/* Ẩn modal mặc định */
+.member-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hiển thị modal khi có class "show" */
+.member-modal.show {
+    display: flex;
+}
+
+/* Nội dung modal */
+.member-modal-content {
+    background: #fff;
+    width: 400px;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom:468px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Header của modal */
+.member-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.member-modal-header h2 {
+    margin: 0;
+}
+
+.btn-close {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Ô nhập */
+.member-modal-body label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.member-modal-body input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Lỗi */
+.member-error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+    /* Mặc định ẩn lỗi */
+}
+
+/* Footer */
+.member-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+.btn-cancel {
+    background: #ccc;
+    border: none;
+    padding: 8px 16px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-save {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}

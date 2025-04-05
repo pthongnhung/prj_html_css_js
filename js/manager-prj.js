@@ -113,7 +113,7 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
     window.location.href = "login.html"; 
 });
 
-
+// Modal thêm dự án
 function openModal() {
     document.getElementById("addModal").style.display = "flex";
 }
@@ -121,3 +121,19 @@ function openModal() {
 function closeModal() {
     document.getElementById("addModal").style.display = "none";
 }
+
+
+const project = {
+    id: 1,
+    projectName: "Xây dựng website thương mại điện tử",
+    members: [
+        {
+            userId: 1,
+            role: "Project owner",
+        },
+        {
+            userId: 2,
+            role: "Frontend developer",
+        },
+    ],
+};

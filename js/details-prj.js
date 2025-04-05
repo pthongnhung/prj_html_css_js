@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const closeBtn = document.querySelector(".close"); 
     const cancelBtn = document.querySelector(".cancel-btn");
 
-
     addTaskBtns.forEach(btn => {
         btn.addEventListener("click", function () {
             modal.style.display="flex";
@@ -78,6 +77,36 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("click", function (e) {
         if (e.target === deletePopup) {
             deletePopup.classList.remove("show");
+        }
+    });
+});
+
+// Modal thêm thành viên
+document.addEventListener("DOMContentLoaded", function () {
+    const memberModal = document.getElementById("memberModal");
+    const btnAddMember = document.getElementById("btnAddMember");
+    const btnClose = document.querySelector(".btn-close");
+    const btnCancel = document.querySelector(".btn-cancel");
+
+    // Hiển thị modal
+    btnAddMember.addEventListener("click", function () {
+        memberModal.classList.add("show");
+    });
+
+    // Ẩn modal khi nhấn vào nút X
+    btnClose.addEventListener("click", function () {
+        memberModal.classList.remove("show");
+    });
+
+    // Ẩn modal khi nhấn nút "Huỷ"
+    btnCancel.addEventListener("click", function () {
+        memberModal.classList.remove("show");
+    });
+
+    // Ẩn modal khi nhấn ra ngoài
+    window.addEventListener("click", function (event) {
+        if (event.target === memberModal) {
+            memberModal.classList.remove("show");
         }
     });
 });

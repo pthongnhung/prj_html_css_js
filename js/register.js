@@ -17,7 +17,18 @@ document.addEventListener("DOMContentLoaded", function () {
         let isValid = true;
         let account = JSON.parse(localStorage.getItem("account")) || []
         // Xóa thông báo lỗi cũ
-        Object.values(errors).forEach(error => error.textContent = "");
+        // Object.values(errors).forEach(error => error.textContent = "");
+
+        // Xóa các lỗi trước khi nhập lại vào ô input
+        function clearErrorOnInput(inputField, errorField) {
+            inputField.addEventListener("input", function () {
+                errorField.textContent = "";
+            });
+        }
+        clearErrorOnInput(fullName, errors.fullName);
+        clearErrorOnInput(email, errors.email);
+        clearErrorOnInput(password, errors.password);
+        clearErrorOnInput(confirmPassword, errors.confirmPassword);
 
         // Validate Họ và tên
         if (!fullName.value.trim()) {
@@ -26,9 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Validate Email
-       
-        if (!email.value.trim()) {
-            console.log("Mật khẩu nhập vào:", password.value); 
+        if (!email.value.trim()) { 
             errors.email.textContent = "Email không được để trống";
             isValid = false;
         } else if (
@@ -54,13 +63,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Validate Xác nhận mật khẩu
         if (!confirmPassword.value.trim()) {
-            errors.confirmPassword.textContent = "Vui lòng nhập lại mật khẩu";
+            errors.confirmPassword.textContent = "Mật khẩu không được để trống";
             isValid = false;
         } else if (confirmPassword.value !== password.value) {
             errors.confirmPassword.textContent = "Mật khẩu không khớp";
             isValid = false;
         }
+       
 
+        // Nếu email đã tồn tại thì thông báo lỗi
+        let user = account.some((acc) => acc.email === email.value.trim());
+        if (user) {
+            errors.email.textContent = "Tài khoản đã tồn tại";
+            isValid=false;
+        }
         // Nếu hợp lệ, hiển thị thông báo
         if (isValid) {
             let newCourse = {

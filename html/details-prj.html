@@ -34,7 +34,7 @@
                             <div>
                                 <h3>Thành viên</h3>
                             </div>
-                            <div><button>+Thêm thành viên</button></div>
+                            <div><button id="btnAddMember">+Thêm thành viên</button></div>
                         </div>
                         <div class="line2">
                             <div class="box1">
@@ -257,6 +257,29 @@
             <div class="delete-task-popup-footer">
                 <button class="cancel-delete-task-btn">Hủy</button>
                 <button class="confirm-delete-task-btn">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal thêm thành viên -->
+    <div class="member-modal" id="memberModal">
+        <div class="member-modal-content">
+            <div class="member-modal-header">
+                <h2>Thêm thành viên</h2>
+                <span class="btn-close">&times;</span>
+            </div>
+            <div class="member-modal-body">
+                <label for="memberEmail">Email</label>
+                <input type="email" id="memberEmail" placeholder="Nhập email">
+                <p class="member-error-message" id="memberEmailError">Thành viên đã tồn tại</p>
+    
+                <label for="memberRole">Vai trò</label>
+                <input type="text" id="memberRole" placeholder="Nhập vai trò">
+            </div>
+            <div class="member-modal-footer">
+                <button class="btn-cancel">Huỷ</button>
+                <button class="btn-save">Lưu</button>
             </div>
         </div>
     </div>
