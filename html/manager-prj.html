@@ -23,11 +23,11 @@
             <h2>Quản lý dự án nhóm</h2>
             <div class="main-top">
                 <div><button class="btn btn-primary" onclick="openModal()">+ Thêm dự án</button></div>
-                <div><input type="text" placeholder="Tìm kiếm dự án"></div>
+                <div><input type="text" placeholder="Tìm kiếm dự án" id="searchPrj" onkeyup="searchPrj()"></div>
             </div>
             <div class="main-bottom">
                 <h3>Danh sách dự án</h3>
-                <table border="1" cellpadding="10px" >
+                <table border="1" cellpadding="10px">
                     <thead>
                         <th class="center">ID</th>
                         <th>Tên dự án</th>
@@ -131,24 +131,25 @@
         <p>&copy;2025 Quản lý nhóm. Mọi quyền được bảo lưu.</p>
     </div>
 
-    <!-- Modal chỉnh sửa -->
+  
+    <!-- Modal chỉnh sửa dự án -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Sửa dự án</h2>
-                <span class="close">&times;</span>
+                <span class="close" onclick="closeEditModal()">&times;</span>
             </div>
             <div class="modal-body">
                 <label for="projectName">Tên dự án</label>
-                <input type="text" id="projectName" placeholder="Nhập tên dự án">
+                <input type="text" id="projectName" class="projectName" placeholder="Nhập tên dự án">
                 <p class="error-message">Tên danh mục đã tồn tại</p>
 
                 <label for="projectDescription">Mô tả dự án</label>
                 <textarea id="projectDescription" placeholder="Nhập mô tả"></textarea>
             </div>
             <div class="modal-footer">
-                <button class="cancel-btn">Hủy</button>
-                <button class="save-btn">Lưu</button>
+                <button class="cancel-btn" onclick="closeEditModal()">Hủy</button>
+                <button class="save-btn" id="confirmEdit" onclick="saveProject()">Lưu</button>
             </div>
         </div>
     </div>
@@ -164,8 +165,8 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Tên dự án</label>
-                        <input type="text" id="projectName" class="form-control">
-                        <div id="errorText" class="error-text d-none">Tên danh mục đã tồn tại</div>
+                        <input type="text" id="projectName" class="form-control namePrj">
+                        <div id="errorText" class="error-text d-none"></div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Mô tả dự án</label>
@@ -185,17 +186,19 @@
         <div class="popup-content">
             <div class="popup-header">
                 <h2>Xác nhận xóa</h2>
-                <span class="close">&times;</span>
+                <span class="close" onclick="closeDeletePopup()">&times;</span>
             </div>
             <div class="popup-body">
                 <p>Bạn chắc chắn muốn xóa dự án này?</p>
             </div>
             <div class="popup-footer">
-                <button class="cancelDeleteBtn">Hủy</button>
-                <button class="confirmDeleteBtn">Xóa</button>
+                <button class="cancelDeleteBtn" onclick="closeDeletePopup()">Hủy</button>
+                <button class="confirmDeleteBtn" >Xóa</button>
             </div>
         </div>
     </div>
+
     <script src="../js/manager-prj.js"></script>
 </body>
+
 </html>
