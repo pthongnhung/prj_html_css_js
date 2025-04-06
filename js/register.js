@@ -77,9 +77,11 @@ document.addEventListener("DOMContentLoaded", function () {
             errors.email.textContent = "Tài khoản đã tồn tại";
             isValid=false;
         }
+        let newId = account.length > 0 ? account[account.length - 1].id + 1 : 1;
         // Nếu hợp lệ, hiển thị thông báo
         if (isValid) {
             let newCourse = {
+                id:newId,
                 email: email.value.trim(),
                 password: password.value.trim()
             }

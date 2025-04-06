@@ -123,17 +123,112 @@ function closeModal() {
 }
 
 
-const project = {
-    id: 1,
-    projectName: "Xây dựng website thương mại điện tử",
-    members: [
-        {
-            userId: 1,
-            role: "Project owner",
-        },
-        {
-            userId: 2,
-            role: "Frontend developer",
-        },
-    ],
-};
+// const projects = [
+//     {
+//         id: 1,
+//         projectName: "Xây dựng website thương mại điện tử",
+//         members: [
+//             { userId: 1, role: "Project owner" },
+//             { userId: 2, role: "Frontend developer" },
+//             { userId: 3, role: "Backend developer" }
+//         ]
+//     },
+//     {
+//         id: 2,
+//         projectName: "Ứng dụng quản lý công việc cá nhân",
+//         members: [
+//             { userId: 2, role: "Project owner" },
+//             { userId: 4, role: "UI/UX designer" }
+//         ]
+//     },
+//     {
+//         id: 3,
+//         projectName: "Hệ thống quản lý sinh viên",
+//         members: [
+//             { userId: 3, role: "Project owner" },
+//             { userId: 1, role: "Tester" }
+//         ]
+//     },
+//     {
+//         id: 4,
+//         projectName: "Landing page giới thiệu sản phẩm",
+//         members: [
+//             { userId: 1, role: "Project owner" },
+//             { userId: 4, role: "Frontend developer" }
+//         ]
+//     },
+//     {
+//         id: 5,
+//         projectName: "App học từ vựng tiếng Anh",
+//         members: [
+//             { userId: 2, role: "Project owner" },
+//             { userId: 3, role: "Content manager" }
+//         ]
+//     },
+//     {
+//         id: 6,
+//         projectName: "Hệ thống đặt phòng khách sạn",
+//         members: [
+//             { userId: 3, role: "Project owner" },
+//             { userId: 2, role: "UI/UX designer" },
+//             { userId: 4, role: "Tester" }
+//         ]
+//     },
+//     {
+//         id: 7,
+//         projectName: "Ứng dụng thời tiết realtime",
+//         members: [
+//             { userId: 4, role: "Project owner" },
+//             { userId: 1, role: "Frontend developer" }
+//         ]
+//     },
+//     {
+//         id: 8,
+//         projectName: "Blog chia sẻ kiến thức lập trình",
+//         members: [
+//             { userId: 1, role: "Project owner" },
+//             { userId: 2, role: "Editor" }
+//         ]
+//     },
+//     {
+//         id: 9,
+//         projectName: "Hệ thống quản lý bài tập sinh viên",
+//         members: [
+//             { userId: 2, role: "Project owner" },
+//             { userId: 3, role: "Backend developer" }
+//         ]
+//     }
+// ];
+// localStorage.setItem("projects", JSON.stringify(projects));
+
+// Giả sử user đã đăng nhập và được lưu trong localStorage
+const currentUserId = parseInt(localStorage.getItem("userId"));
+
+const projects = JSON.parse(localStorage.getItem("projects")) || [];
+
+const ownedProjects = projects.filter(project =>
+    project.members.some(member => member.userId === currentUserId && member.role === "Project owner")
+);
+
+const projectListDiv = document.getElementById("projectList");
+// Hiển thị danh sách các dự án mà user là chủ
+if (ownedProjects.length === 0) {
+    projectListDiv.innerHTML = "<p>Không có dự án nào bạn làm chủ.</p>";
+} else {
+    let element = "";
+    for (let i = 0; i < ownedProjects.length; i++){
+        element += `<tr>
+            <td class="center">${ownedProjects[i].id}</td>
+            <td>${ownedProjects[i].projectName}</td>
+            <td class="center">
+                <button class="edit-btn">Sửa</button>
+                <button class="delete-btn">Xóa</button>
+                <button class="detail-btn">Chi tiết</button>
+            </td>
+        </tr>`
+    }
+    projectListDiv.innerHTML = element;
+     
+}
+
+

@@ -23,9 +23,11 @@ document.addEventListener("DOMContentLoaded", function () {
             email: email.value.trim(),
             password: password.value.trim()
         };
-
+        let userId;
         for (let i = 0; i < account.length; i++) {
             if (account[i].email === acc.email && account[i].password === acc.password) {
+                userId = account[i].id;
+                localStorage.setItem("userId", userId);
                 isValid = true;
                 break;
             }
