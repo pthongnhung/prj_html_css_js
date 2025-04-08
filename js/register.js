@@ -85,6 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 email: email.value.trim(),
                 password: password.value.trim()
             }
+            localStorage.setItem("userId", newId);
             account.push(newCourse);
             localStorage.setItem("account", JSON.stringify(account));
             alert("Đăng ký thành công!");

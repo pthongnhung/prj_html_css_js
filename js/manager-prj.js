@@ -1,48 +1,50 @@
 
 //Thanh dieu huong
 document.addEventListener("DOMContentLoaded", function () {
-    const pages = document.querySelectorAll(".page");
-    const prevBtn = document.querySelector(".prev");
-    const nextBtn = document.querySelector(".next");
+    const pageButtons = document.querySelectorAll(".pagination .page");
+    const prevBtn = document.querySelector(".pagination .prev");
+    const nextBtn = document.querySelector(".pagination .next");
 
-    let currentPage = 1;
-
-    function updatePagination() {
-        pages.forEach((page, index) => {
-            if (index + 1 === currentPage) {
-                page.classList.add("active");
-            } else {
-                page.classList.remove("active");
-            }
-        });
-
-        prevBtn.disabled = currentPage === 1;
-        nextBtn.disabled = currentPage === pages.length;
-    }
-
-    pages.forEach((page, index) => {
-        page.addEventListener("click", function () {
+    pageButtons.forEach((btn, index) => {
+        btn.addEventListener("click", () => {
             currentPage = index + 1;
-            updatePagination();
+            renderList();
         });
     });
 
-    prevBtn.addEventListener("click", function () {
+    prevBtn.addEventListener("click", () => {
         if (currentPage > 1) {
             currentPage--;
-            updatePagination();
+            renderList();
         }
     });
 
-    nextBtn.addEventListener("click", function () {
-        if (currentPage < pages.length) {
-            currentPage++;
-            updatePagination();
-        }
+    nextBtn.addEventListener("click", () => {
+        currentPage++;
+        renderList();
     });
 
-    updatePagination();
+    renderList(); // Gọi lần đầu khi trang tải
 });
+
+
+function updatePagination(totalItems) {
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    const pageButtons = document.querySelectorAll(".pagination .page");
+    const prevBtn = document.querySelector(".pagination .prev");
+    const nextBtn = document.querySelector(".pagination .next");
+
+    // Cập nhật class active
+    pageButtons.forEach((btn, index) => {
+        btn.classList.toggle("active", index + 1 === currentPage);
+    });
+
+    // Vô hiệu hóa nút prev và next nếu cần
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+}
+
 
 document.getElementById("logoutBtn").addEventListener("click", function () {
     window.location.href = "login.html";
@@ -138,40 +140,67 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
 // localStorage.setItem("projects", JSON.stringify(projects));
 
 // Hiển thị danh sách các dự án mà user là chủ
-function renderList() {
-    // Giả sử user đã đăng nhập và được lưu trong localStorage
-    const currentUserId = parseInt(localStorage.getItem("userId"));
+let currentPage = 1;
+const itemsPerPage = 9;
 
+function renderList() {
+    const currentUserId = parseInt(localStorage.getItem("userId"));
     const projects = JSON.parse(localStorage.getItem("projects")) || [];
+
     const ownedProjects = projects.filter(project =>
-        project.members.some(member => member.userId === currentUserId && member.role === "Project owner")
+        project.members?.some(member => member.userId === currentUserId && member.role === "Project owner")
     );
+
     const projectListDiv = document.getElementById("projectList");
     projectListDiv.innerHTML = "";
+
     if (ownedProjects.length === 0) {
         projectListDiv.innerHTML = "<p>Không có dự án nào bạn làm chủ.</p>";
-    } else {
-        let element = "";
-        for (let i = 0; i < ownedProjects.length; i++) {
-            element += `<tr>
-            <td class="center">${ownedProjects[i].id}</td>
-            <td>${ownedProjects[i].projectName}</td>
+        return;
+    }
+
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedProjects = ownedProjects.slice(start, end);
+
+    let element = "";
+    for (let i = 0; i < paginatedProjects.length; i++) {
+        const indexInOwned = start + i;
+        element += `<tr>
+            <td class="center">${paginatedProjects[i].id}</td>
+            <td>${paginatedProjects[i].projectName}</td>
             <td class="center">
-                <button class="edit-btn" onclick=" openEditModal()">Sửa</button>
-                <button class="delete-btn" onclick="openDeletePopup(${i})">Xóa</button>
+                <button class="edit-btn" onclick="openEditModal(${paginatedProjects[i].id})">Sửa</button>
+                <button class="delete-btn" onclick="openDeletePopup(${indexInOwned})">Xóa</button>
                 <button class="detail-btn">Chi tiết</button>
             </td>
-        </tr>`
-        }
-        projectListDiv.innerHTML = element;
+        </tr>`;
     }
+
+    projectListDiv.innerHTML = element;
+    attachDetailEvents();
+    updatePagination(ownedProjects.length);
 }
+
 renderList();
 
 // Hàm mở modal chỉnh sửa
-function openEditModal() {
-    const editModal = document.querySelector(".modal");
-    editModal.classList.add("show");
+let editingProjectId = null;
+function openEditModal(projectId) {
+    const projects = JSON.parse(localStorage.getItem("projects")) || [];
+    const project = projects.find(p => p.id === projectId);
+    if (!project) return;
+
+    editingProjectId = projectId;
+
+    document.getElementById("projectName").value = project.projectName;
+    document.getElementById("projectDescription").value = project.description;
+
+    // Ẩn thông báo lỗi nếu có
+    document.querySelector(".error-message").style.display = "none";
+
+    // Mở modal
+    document.getElementById("modal").classList.add("show");
 }
 
 // Hàm đóng modal chỉnh sửa
@@ -184,6 +213,74 @@ function closeEditModal() {
 function cancelEditAction() {
     const editModal = document.querySelector(".modal");
     editModal.classList.remove("show");
+}
+
+// Hàm xác nhận chỉnh sửa
+function confirmEdit() {
+    const projects = JSON.parse(localStorage.getItem("projects")) || [];
+    const currentUserId = parseInt(localStorage.getItem("userId"));
+    const projectNameInput = document.getElementById("projectName");
+    const descriptionInput = document.getElementById("projectDescription");
+    const errorText = document.querySelector(".error-message");
+
+    const newName = projectNameInput.value.trim();
+    const newDesc = descriptionInput.value.trim();
+
+    let isValid = true;
+    errorText.style.display = "none";
+    errorText.innerText = "";
+
+    // Kiểm tra rỗng
+    if (newName === "" || newDesc === "") {
+        errorText.innerText = "Tên và mô tả dự án không được để trống.";
+        isValid = false;
+    }
+
+    // Kiểm tra độ dài tên dự án
+    else if (newName.length < 5 || newName.length > 50) {
+        errorText.innerText = "Tên dự án phải từ 5 đến 50 ký tự.";
+        isValid = false;
+    }
+
+    // Kiểm tra độ dài mô tả
+    else if (newDesc.length < 10 || newDesc.length > 50) {
+        errorText.innerText = "Mô tả phải từ 10 đến 50 ký tự.";
+        isValid = false;
+    }
+
+    // Kiểm tra trùng tên với các project khác của người dùng
+    else {
+        const ownedProjects = projects.filter(project =>
+            project.members.some(member => member.userId === currentUserId && member.role === "Project owner")
+        );
+
+        const isDuplicate = ownedProjects.some(project =>
+            project.projectName.toLowerCase() === newName.toLowerCase() &&
+            project.id !== editingProjectId
+        );
+
+        if (isDuplicate) {
+            errorText.innerText = "Tên danh mục đã tồn tại.";
+            isValid = false;
+        }
+    }
+
+    if (!isValid) {
+        errorText.style.display = "block";
+        return;
+    }
+
+    // Cập nhật dữ liệu
+    const projectIndex = projects.findIndex(p => p.id === editingProjectId);
+    if (projectIndex !== -1) {
+        projects[projectIndex].projectName = newName;
+        projects[projectIndex].description = newDesc;
+        localStorage.setItem("projects", JSON.stringify(projects));
+    }
+
+    // Đóng modal và cập nhật UI
+    closeEditModal();
+    renderList();
 }
 
 
@@ -234,10 +331,12 @@ function goToDetailsPage() {
     window.location.href = "details-prj.html";
 }
 
-// Đảm bảo rằng bạn đã thêm sự kiện "click" vào các nút để chuyển sang màn hình chi tiết
-document.querySelectorAll(".detail-btn").forEach(button => {
-    button.addEventListener("click", goToDetailsPage);
-});
+// Đảm bảo rằng thêm sự kiện "click" vào các nút để chuyển sang màn hình chi tiết
+function attachDetailEvents() {
+    document.querySelectorAll(".detail-btn").forEach(button => {
+        button.addEventListener("click", goToDetailsPage);
+    });
+}
 
 // Đóng modal hoặc popup khi nhấn ra ngoài
 window.addEventListener("click", function (e) {
@@ -257,6 +356,7 @@ window.addEventListener("click", function (e) {
 // Modal thêm dự án
 function openModal() {
     document.getElementById("addModal").style.display = "flex";
+
 }
 
 function closeModal() {
@@ -350,17 +450,24 @@ function searchPrj() {
         projectListDiv.innerHTML = "<p>Không tìm thấy dự án nào.</p>";
     } else {
         let element = "";
-        filteredProjects.forEach((project, index) => { 
+        filteredProjects.forEach((project) => {
+            const ownedProjects = projects.filter(p =>
+                p.members.some(member => member.userId === parseInt(currentUserId) && member.role === "Project owner")
+            );
+
+            const indexInOwned = ownedProjects.findIndex(p => p.id === project.id);
+
             element += `<tr>
-                <td class="center">${project.id}</td>
-                <td>${project.projectName}</td>
-                <td class="center">
-                    <button class="edit-btn" onclick="openEditModal()">Sửa</button>
-                    <button class="delete-btn" onclick="openDeletePopup(${index})">Xóa</button>
-                    <button class="detail-btn">Chi tiết</button>
-                </td>
+                    <td class="center">${project.id}</td>
+                    <td>${project.projectName}</td>
+                    <td class="center">
+                        <button class="edit-btn" onclick="openEditModal(${project.id})">Sửa</button>
+                        <button class="delete-btn" onclick="openDeletePopup(${indexInOwned})">Xóa</button>
+                        <button class="detail-btn">Chi tiết</button>
+                    </td>
             </tr>`;
         });
         projectListDiv.innerHTML = element;
+        attachDetailEvents();
     }
 }
