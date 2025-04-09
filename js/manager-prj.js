@@ -388,8 +388,8 @@ function saveProject() {
     }
 
     // Kiểm tra độ dài mô tả
-    if (description.length < 10 || description.length > 50) {
-        errorText.innerText = "Mô tả phải từ 5 đến 50 ký tự.";
+    if (description.length < 10 || description.length > 100) {
+        errorText.innerText = "Mô tả phải từ 5 đến 100 ký tự.";
         isValid = false;
     }
 

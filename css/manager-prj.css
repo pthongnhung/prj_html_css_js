@@ -1,5 +1,5 @@
 body {
-    width: 1920px;
+    /* width: 1920px; */
     height: 800px;
     background-color: black;
 
@@ -12,6 +12,7 @@ body {
     justify-content: space-around;
     gap: 500px;
     margin-top: 40px;
+    background-color: black;
 }
 
 .header-left {
