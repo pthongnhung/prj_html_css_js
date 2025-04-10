@@ -1,17 +1,18 @@
+let projects = JSON.parse(localStorage.getItem("projects")) || []
 // Modal sửa
 document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("taskModal");
     const addTaskBtns = document.querySelectorAll(".edit-btn");
-    const closeBtn = document.querySelector(".close"); 
+    const closeBtn = document.querySelector(".close");
     const cancelBtn = document.querySelector(".cancel-btn");
 
     addTaskBtns.forEach(btn => {
         btn.addEventListener("click", function () {
-            modal.style.display="flex";
+            modal.style.display = "flex";
         });
     });
 
-    
+
     closeBtn.addEventListener("click", function () {
         modal.style.display = "none";
 
@@ -111,7 +112,32 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-task = {
+// Ham render
+function renderList() {
+    let idDetail = localStorage.getItem("key_detail")
+    let filterProject = projects.find((e) => e.id == idDetail)
+    console.log(filterProject);
+    let projectName = document.getElementById("projectName");
+    let projectDescription = document.getElementById("projectDescription");
+    projectName.innerText = filterProject.projectName;
+    projectDescription.innerText = filterProject.description;
+}
+renderList();
+const task = [
+    {
+        id: 1,
+        taskName: "Soạn thảo đè cương dự án",
+        assigneedId: 1,
+        projectId: 1,
+        asignDate: "24-03-2025",
+        dueDate: "2025-03-26",
+        priority: "Thấp",
+        progress: "Đúng tiến độ",
+        status:"To do",
+    }
+]
+localStorage.setItem("task", JSON.stringify(task));
+function showList() {
+    let task = JSON.parse(localStorage.getItem("task")) || [];
     
 }

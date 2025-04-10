@@ -170,15 +170,15 @@ function renderList() {
             <td class="center">${paginatedProjects[i].id}</td>
             <td>${paginatedProjects[i].projectName}</td>
             <td class="center">
-                <button class="edit-btn" onclick="openEditModal(${paginatedProjects[i].id})">Sửa</button>
+                <button  class="edit-btn" onclick="openEditModal(${paginatedProjects[i].id})">Sửa</button>
                 <button class="delete-btn" onclick="openDeletePopup(${indexInOwned})">Xóa</button>
-                <button class="detail-btn">Chi tiết</button>
+                <button id=${paginatedProjects[i].id} onclick="attachDetailEvents(${paginatedProjects[i].id})" class="detail-btn">Chi tiết</button>
             </td>
         </tr>`;
     }
 
     projectListDiv.innerHTML = element;
-    attachDetailEvents();
+    // attachDetailEvents();
     updatePagination(ownedProjects.length);
 }
 
@@ -187,6 +187,8 @@ renderList();
 // Hàm mở modal chỉnh sửa
 let editingProjectId = null;
 function openEditModal(projectId) {
+    console.log(1111, projectId);
+
     const projects = JSON.parse(localStorage.getItem("projects")) || [];
     const project = projects.find(p => p.id === projectId);
     if (!project) return;
@@ -326,16 +328,11 @@ function cancelDeleteAction() {
     deletePopup.classList.remove("show");
 }
 
-// Hàm chuyển sang màn hình chi tiết
-function goToDetailsPage() {
-    window.location.href = "details-prj.html";
-}
-
-// Đảm bảo rằng thêm sự kiện "click" vào các nút để chuyển sang màn hình chi tiết
-function attachDetailEvents() {
-    document.querySelectorAll(".detail-btn").forEach(button => {
-        button.addEventListener("click", goToDetailsPage);
-    });
+// // Thêm sự kiện "click" vào các nút để chuyển sang màn hình chi tiết
+function attachDetailEvents(id) {
+    // console.log(id);
+    localStorage.setItem("key_detail", id);
+    window.location.href = "./details-prj.html"
 }
 
 // Đóng modal hoặc popup khi nhấn ra ngoài
@@ -350,8 +347,6 @@ window.addEventListener("click", function (e) {
         deletePopup.classList.remove("show");
     }
 });
-
-
 
 // Modal thêm dự án
 function openModal() {
@@ -371,6 +366,8 @@ function saveProject() {
     const projectName = document.querySelector(".addModal .namePrj").value.trim();
     const description = document.getElementById("projectDesc").value.trim();
     const errorText = document.getElementById("errorText");
+    const errorTextt = document.getElementById("errorTextt");
+
     errorText.innerText = "";
 
     let isValid = true;
@@ -389,7 +386,7 @@ function saveProject() {
 
     // Kiểm tra độ dài mô tả
     if (description.length < 10 || description.length > 100) {
-        errorText.innerText = "Mô tả phải từ 5 đến 100 ký tự.";
+        errorTextt.innerText = "Mô tả phải từ 10 đến 100 ký tự.";
         isValid = false;
     }
 
@@ -430,7 +427,7 @@ function saveProject() {
 function searchPrj() {
     let searchValue = document.getElementById("searchPrj").value.toLowerCase().trim();
     let currentUserId = localStorage.getItem("userId");
-    const projects = JSON.parse(localStorage.getItem("projects")) || []; 
+    const projects = JSON.parse(localStorage.getItem("projects")) || [];
 
     // Lọc các dự án mà người dùng là chủ
     let ownedProjects = projects.filter((project) =>
@@ -463,11 +460,13 @@ function searchPrj() {
                     <td class="center">
                         <button class="edit-btn" onclick="openEditModal(${project.id})">Sửa</button>
                         <button class="delete-btn" onclick="openDeletePopup(${indexInOwned})">Xóa</button>
-                        <button class="detail-btn">Chi tiết</button>
+                        <button  onclick="attachDetailEvents(${project.id})" class="detail-btn">Chi tiết</button>
                     </td>
             </tr>`;
         });
         projectListDiv.innerHTML = element;
-        attachDetailEvents();
+
     }
 }
+
+// Xem chi tiet du an

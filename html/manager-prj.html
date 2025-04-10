@@ -23,7 +23,7 @@
             <h2>Quản lý dự án nhóm</h2>
             <div class="main-top">
                 <div><button class="btn btn-primary" onclick="openModal()">+ Thêm dự án</button></div>
-                <div><input type="text" placeholder="Tìm kiếm dự án" id="searchPrj" onkeyup="searchPrj()"></div>
+                <div><input type="text" placeholder="Tìm kiếm dự án" id="searchPrj" oninput="searchPrj()"></div>
             </div>
             <div class="main-bottom">
                 <h3>Danh sách dự án</h3>
@@ -85,7 +85,7 @@
                             <td class="center">
                                 <button class="edit-btn">Sửa</button>
                                 <button class="delete-btn">Xóa</button>
-                                <button class="detail-btn">Chi tiết</button>
+                                <button class="detail-btn" >Chi tiết</button>
                             </td>
                         </tr>
                         <tr>
@@ -131,7 +131,7 @@
         <p>&copy;2025 Quản lý nhóm. Mọi quyền được bảo lưu.</p>
     </div>
 
-  
+
     <!-- Modal chỉnh sửa dự án -->
     <div class="modal" id="modal">
         <div class="modal-content">
@@ -171,6 +171,8 @@
                     <div class="mb-3">
                         <label class="form-label">Mô tả dự án</label>
                         <textarea id="projectDesc" class="form-control"></textarea>
+                        <div id="errorTextt" class="error-text d-none"></div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -193,7 +195,7 @@
             </div>
             <div class="popup-footer">
                 <button class="cancelDeleteBtn" onclick="closeDeletePopup()">Hủy</button>
-                <button class="confirmDeleteBtn" >Xóa</button>
+                <button class="confirmDeleteBtn">Xóa</button>
             </div>
         </div>
     </div>

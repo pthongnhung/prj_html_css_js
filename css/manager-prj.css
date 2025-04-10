@@ -334,6 +334,7 @@ button:disabled {
     /* Khi có class 'show' thì hiển thị */
 }
 
+/* Modal thêm */
 .addModal-content {
     max-width: 500px;
     margin: auto;
@@ -345,6 +346,11 @@ button:disabled {
 }
 
 .error-text {
+    color: red;
+    font-size: 0.875rem;
+}
+
+#errorTextt {
     color: red;
     font-size: 0.875rem;
 }
@@ -378,7 +384,7 @@ button:disabled {
     border-radius: 4px;
     cursor: pointer;
 }
-.btn-close{
-    cursor: pointer;
-    }
 
+.btn-close {
+    cursor: pointer;
+}

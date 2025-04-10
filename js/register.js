@@ -90,14 +90,9 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("account", JSON.stringify(account));
             alert("Đăng ký thành công!");
             form.reset();
-            window.location = "manager-prj.html";
+            window.location = "login.html"
         }
     });
 });
-
-// Chuyển sang trang đăng nhập
-document.getElementById("loginBtn").addEventListener("click", function () {
-    window.location="login.html"
-})
 
 
