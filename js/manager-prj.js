@@ -50,16 +50,15 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
     window.location.href = "login.html";
 });
 
-
 // const projects = [
 //     {
 //         id: 1,
 //         projectName: "Xây dựng website thương mại điện tử",
 //         description: "Website mua bán trực tuyến hiện đại",
 //         members: [
-//             { userId: 1, role: "Project owner" },
-//             { userId: 2, role: "Frontend developer" },
-//             { userId: 3, role: "Backend developer" }
+//             { userId: 1, fullName: "An Nguyễn", role: "Project owner" },
+//             { userId: 2, fullName: "Bình Trần", role: "Frontend developer" },
+//             { userId: 3, fullName: "Cường Lê", role: "Backend developer" }
 //         ]
 //     },
 //     {
@@ -67,8 +66,8 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
 //         projectName: "Ứng dụng quản lý công việc cá nhân",
 //         description: "Quản lý lịch và công việc hằng ngày",
 //         members: [
-//             { userId: 2, role: "Project owner" },
-//             { userId: 4, role: "UI/UX designer" }
+//             { userId: 2, fullName: "Bình Trần", role: "Project owner" },
+//             { userId: 4, fullName: "Dương Phạm", role: "UI/UX designer" }
 //         ]
 //     },
 //     {
@@ -76,8 +75,8 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
 //         projectName: "Hệ thống quản lý sinh viên",
 //         description: "Quản lý thông tin sinh viên khoa học",
 //         members: [
-//             { userId: 3, role: "Project owner" },
-//             { userId: 1, role: "Tester" }
+//             { userId: 3, fullName: "Cường Lê", role: "Project owner" },
+//             { userId: 1, fullName: "An Nguyễn", role: "Tester" }
 //         ]
 //     },
 //     {
@@ -85,8 +84,8 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
 //         projectName: "Landing page giới thiệu sản phẩm",
 //         description: "Trang giới thiệu sản phẩm bắt mắt",
 //         members: [
-//             { userId: 1, role: "Project owner" },
-//             { userId: 4, role: "Frontend developer" }
+//             { userId: 1, fullName: "An Nguyễn", role: "Project owner" },
+//             { userId: 4, fullName: "Dương Phạm", role: "Frontend developer" }
 //         ]
 //     },
 //     {
@@ -94,8 +93,8 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
 //         projectName: "App học từ vựng tiếng Anh",
 //         description: "Ứng dụng học từ vựng hiệu quả",
 //         members: [
-//             { userId: 2, role: "Project owner" },
-//             { userId: 3, role: "Content manager" }
+//             { userId: 2, fullName: "Bình Trần", role: "Project owner" },
+//             { userId: 3, fullName: "Cường Lê", role: "Content manager" }
 //         ]
 //     },
 //     {
@@ -103,9 +102,9 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
 //         projectName: "Hệ thống đặt phòng khách sạn",
 //         description: "Đặt phòng nhanh chóng, dễ dàng",
 //         members: [
-//             { userId: 3, role: "Project owner" },
-//             { userId: 2, role: "UI/UX designer" },
-//             { userId: 4, role: "Tester" }
+//             { userId: 3, fullName: "Cường Lê", role: "Project owner" },
+//             { userId: 2, fullName: "Bình Trần", role: "UI/UX designer" },
+//             { userId: 4, fullName: "Dương Phạm", role: "Tester" }
 //         ]
 //     },
 //     {
@@ -113,8 +112,8 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
 //         projectName: "Ứng dụng thời tiết realtime",
 //         description: "Xem thời tiết mọi nơi, realtime",
 //         members: [
-//             { userId: 4, role: "Project owner" },
-//             { userId: 1, role: "Frontend developer" }
+//             { userId: 4, fullName: "Dương Phạm", role: "Project owner" },
+//             { userId: 1, fullName: "An Nguyễn", role: "Frontend developer" }
 //         ]
 //     },
 //     {
@@ -122,8 +121,8 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
 //         projectName: "Blog chia sẻ kiến thức lập trình",
 //         description: "Chia sẻ kiến thức lập trình hay",
 //         members: [
-//             { userId: 1, role: "Project owner" },
-//             { userId: 2, role: "Editor" }
+//             { userId: 1, fullName: "An Nguyễn", role: "Project owner" },
+//             { userId: 2, fullName: "Bình Trần", role: "Editor" }
 //         ]
 //     },
 //     {
@@ -131,13 +130,15 @@ document.getElementById("logoutBtn").addEventListener("click", function () {
 //         projectName: "Hệ thống quản lý bài tập sinh viên",
 //         description: "Theo dõi và quản lý bài tập",
 //         members: [
-//             { userId: 2, role: "Project owner" },
-//             { userId: 3, role: "Backend developer" }
+//             { userId: 2, fullName: "Bình Trần", role: "Project owner" },
+//             { userId: 3, fullName: "Cường Lê", role: "Backend developer" }
 //         ]
 //     }
 // ];
 
 // localStorage.setItem("projects", JSON.stringify(projects));
+
+
 
 // Hiển thị danh sách các dự án mà user là chủ
 let currentPage = 1;
@@ -172,7 +173,8 @@ function renderList() {
             <td class="center">
                 <button  class="edit-btn" onclick="openEditModal(${paginatedProjects[i].id})">Sửa</button>
                 <button class="delete-btn" onclick="openDeletePopup(${indexInOwned})">Xóa</button>
-                <button id=${paginatedProjects[i].id} onclick="attachDetailEvents(${paginatedProjects[i].id})" class="detail-btn">Chi tiết</button>
+                <button id=${paginatedProjects[i]
+                .id} onclick="attachDetailEvents(${paginatedProjects[i].id})" class="detail-btn">Chi tiết</button>
             </td>
         </tr>`;
     }
@@ -469,4 +471,3 @@ function searchPrj() {
     }
 }
 
-// Xem chi tiet du an
