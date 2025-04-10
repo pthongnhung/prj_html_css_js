@@ -1,77 +1,403 @@
 let projects = JSON.parse(localStorage.getItem("projects")) || []
 
 // Modal thêm nhiệm vụ
-
 document.addEventListener("DOMContentLoaded", function () {
-    const popup = document.getElementById("taskPopup");
-    const addTaskBtns = document.querySelectorAll(".add-btn");
+    // Giả sử có nút mở modal thêm nhiệm vụ với id "btnAddTask"
+    const btnAddTask = document.getElementById("btnAddTask");
+    const taskPopup = document.getElementById("taskPopup");
     const closePopupBtn = document.querySelector(".close-popup");
     const dismissBtn = document.querySelector(".dismiss-btn");
 
-    addTaskBtns.forEach(btn => {
-        btn.addEventListener("click", function () {
-            popup.style.display = "flex";
-        });
-    });
+    // Mở modal khi nhấn nút Thêm nhiệm vụ
+    if (btnAddTask) {
+        btnAddTask.onclick = function () {
+            // Nếu cần, bạn có thể gọi hàm populateTaskOwnerOptions() để đổ danh sách người phụ trách
+            populateTaskOwnerOptions();
+            taskPopup.style.display = "flex";
+        };
+    }
 
-    closePopupBtn.addEventListener("click", function () {
-        popup.style.display = "none";
-    });
+    // Đóng modal khi nhấn nút "X" hoặc "Hủy"
+    closePopupBtn.onclick = function () {
+        taskPopup.style.display = "none";
+        clearTaskForm();
+    };
+    dismissBtn.onclick = function () {
+        taskPopup.style.display = "none";
+        clearTaskForm();
+    };
 
-    dismissBtn.addEventListener("click", function () {
-        popup.style.display = "none";
-    });
+    // Đóng modal nếu nhấn ra ngoài vùng modal
+    window.onclick = function (event) {
+        if (event.target === taskPopup) {
+            taskPopup.style.display = "none";
+            clearTaskForm();
+        }
+    };
 });
+
+// Hàm đổ danh sách người phụ trách vào select "taskOwner"
+// Lấy danh sách member từ project hiện tại (dựa vào key_detail lưu trong localStorage)
+function populateTaskOwnerOptions() {
+    const taskOwnerSelect = document.getElementById("taskOwner");
+    // Xóa các option cũ và thêm option mặc định
+    taskOwnerSelect.innerHTML = '<option value="">Chọn người phụ trách</option>';
+
+    // Lấy id dự án hiện tại từ localStorage (giả sử lưu với key "key_detail")
+    const projectId = localStorage.getItem("key_detail");
+    const projects = JSON.parse(localStorage.getItem("projects")) || [];
+    const currentProject = projects.find(project => project.id == projectId);
+
+    if (currentProject && Array.isArray(currentProject.members)) {
+        currentProject.members.forEach(function (member) {
+            const option = document.createElement("option");
+            option.value = member.userId;         // Dùng userId làm giá trị
+            option.textContent = member.fullName;   // Hiển thị tên đầy đủ
+            taskOwnerSelect.appendChild(option);
+        });
+    }
+}
+
+// Hàm hiển thị lỗi cho trường cụ thể
+function showTaskError(elementId, message) {
+    const el = document.getElementById(elementId);
+    if (el) {
+        el.innerText = message;
+        el.style.display = "block";
+    }
+}
+
+// Hàm ẩn tất cả lỗi
+function hideAllTaskErrors() {
+    const errors = document.querySelectorAll(".error-text");
+    errors.forEach(function (el) {
+        el.style.display = "none";
+    });
+}
+
+// Hàm reset form thêm nhiệm vụ
+function clearTaskForm() {
+    document.getElementById("taskTitle").value = "";
+    document.getElementById("taskOwner").value = "";
+    document.getElementById("taskStatus").value = "";
+    document.getElementById("taskStartDate").value = "";
+    document.getElementById("taskDueDate").value = "";
+    document.getElementById("taskPriority").value = "";
+    document.getElementById("taskProgress").value = "";
+    hideAllTaskErrors();
+}
+
+// Hàm xử lý lưu nhiệm vụ mới khi nhấn "Lưu"
+// Khi trang load xong
+document.addEventListener("DOMContentLoaded", function () {
+    // Giả sử có nút mở modal thêm nhiệm vụ với id "btnAddTask"
+    const btnAddTask = document.getElementById("btnAddTask");
+    const taskPopup = document.getElementById("taskPopup");
+    const closePopupBtn = document.querySelector(".close-popup");
+    const dismissBtn = document.querySelector(".dismiss-btn");
+
+    // Mở modal khi nhấn nút Thêm nhiệm vụ
+    if (btnAddTask) {
+        btnAddTask.onclick = function () {
+            // Nếu cần, bạn có thể gọi hàm populateTaskOwnerOptions() để đổ danh sách người phụ trách
+            populateTaskOwnerOptions();
+            taskPopup.style.display = "flex";
+        };
+    }
+
+    // Đóng modal khi nhấn nút "X" hoặc "Hủy"
+    closePopupBtn.onclick = function () {
+        taskPopup.style.display = "none";
+        clearTaskForm();
+    };
+    dismissBtn.onclick = function () {
+        taskPopup.style.display = "none";
+        clearTaskForm();
+    };
+
+   
+});
+
+// Hàm đổ danh sách người phụ trách vào select "taskOwner"
+function populateTaskOwnerOptions() {
+    const taskOwnerSelect = document.getElementById("taskOwner");
+    // Xóa các option cũ và thêm option mặc định
+    taskOwnerSelect.innerHTML = '<option value="">Chọn người phụ trách</option>';
+
+    // Lấy id dự án hiện tại từ localStorage (giả sử lưu với key "key_detail")
+    const projectId = localStorage.getItem("key_detail");
+    const projects = JSON.parse(localStorage.getItem("projects")) || [];
+    const currentProject = projects.find(project => project.id == projectId);
+
+    if (currentProject && Array.isArray(currentProject.members)) {
+        currentProject.members.forEach(function (member) {
+            const option = document.createElement("option");
+            option.value = member.userId;         // Dùng userId làm giá trị
+            option.textContent = member.fullName;   // Hiển thị tên đầy đủ
+            taskOwnerSelect.appendChild(option);
+        });
+    }
+}
+
+// Hàm hiển thị lỗi cho trường cụ thể
+function showTaskError(elementId, message) {
+    const el = document.getElementById(elementId);
+    if (el) {
+        el.innerText = message;
+        el.style.display = "block";
+    }
+}
+
+// Hàm ẩn tất cả lỗi
+function hideAllTaskErrors() {
+    const errors = document.querySelectorAll(".error-text");
+    errors.forEach(function (el) {
+        el.style.display = "none";
+    });
+}
+
+// Hàm reset form thêm nhiệm vụ
+function clearTaskForm() {
+    document.getElementById("taskTitle").value = "";
+    document.getElementById("taskOwner").value = "";
+    document.getElementById("taskStatus").value = "";
+    document.getElementById("taskStartDate").value = "";
+    document.getElementById("taskDueDate").value = "";
+    document.getElementById("taskPriority").value = "";
+    document.getElementById("taskProgress").value = "";
+    hideAllTaskErrors();
+}
+
+// Hàm xử lý lưu nhiệm vụ mới khi nhấn "Lưu"
+function handleSaveTask() {
+    // Lấy dữ liệu từ form
+    const title = document.getElementById("taskTitle").value.trim();
+    const owner = document.getElementById("taskOwner").value;
+    const status = document.getElementById("taskStatus").value;
+    const startDate = document.getElementById("taskStartDate").value;
+    const dueDate = document.getElementById("taskDueDate").value;
+    const priority = document.getElementById("taskPriority").value;
+    const progress = document.getElementById("taskProgress").value;
+
+    // Lấy các phần tử hiển thị lỗi
+    const titleErrorId = "taskTitleError";
+    const ownerErrorId = "taskOwnerError";
+    const statusErrorId = "taskStatusError";
+    const startDateErrorId = "taskStartDateError";
+    const dueDateErrorId = "taskDueDateError";
+    const priorityErrorId = "taskPriorityError";
+    const progressErrorId = "taskProgressError";
+
+    // Ẩn tất cả lỗi cũ
+    hideAllTaskErrors();
+
+    let valid = true;
+    const today = new Date().toISOString().split("T")[0]; // Định dạng yyyy-mm-dd
+
+    // Lấy danh sách nhiệm vụ hiện có
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+   
+
+    // Kiểm tra tên nhiệm vụ
+    if (title === "") {
+        showTaskError(titleErrorId, "Tên nhiệm vụ không được để trống");
+        valid = false;
+    } else if (title.length < 3 || title.length > 50) {
+        showTaskError(titleErrorId, "Tên nhiệm vụ phải từ 3 đến 50 ký tự");
+        valid = false;
+    } else if (tasks.some(task => tasks.some(task =>
+        task.title &&
+        task.title.toLowerCase() === title.toLowerCase() &&
+        task.projectId == idDetail
+    ))) {
+        console.log(tasks);
+        showTaskError(titleErrorId, "Tên nhiệm vụ đã tồn tại");
+        valid = false;
+    }
+
+    // Kiểm tra người phụ trách
+    if (owner === "") {
+        showTaskError(ownerErrorId, "Vui lòng chọn người phụ trách");
+        valid = false;
+    }
+
+    // Kiểm tra trạng thái
+    if (status === "") {
+        showTaskError(statusErrorId, "Vui lòng chọn trạng thái");
+        valid = false;
+    }
+
+    // Kiểm tra ngày bắt đầu
+    if (startDate === "") {
+        showTaskError(startDateErrorId, "Vui lòng chọn ngày bắt đầu");
+        valid = false;
+    }
+
+    // Kiểm tra hạn chót
+    if (dueDate === "") {
+        showTaskError(dueDateErrorId, "Vui lòng chọn hạn chót");
+        valid = false;
+    } else if (dueDate <= startDate) {
+        showTaskError(dueDateErrorId, "Hạn chót phải lớn hơn ngày bắt đầu");
+        valid = false;
+    }
+
+    // Kiểm tra độ ưu tiên
+    if (priority === "") {
+        showTaskError(priorityErrorId, "Vui lòng chọn độ ưu tiên");
+        valid = false;
+    }
+
+    // Kiểm tra tiến độ
+    if (progress === "") {
+        showTaskError(progressErrorId, "Vui lòng chọn tiến độ");
+        valid = false;
+    }
+
+    // Nếu không hợp lệ, dừng hàm
+    if (!valid) return;
+
+    // Nếu hợp lệ, tạo nhiệm vụ mới
+    const newTask = {
+        id: Math.floor(Math.random() * 3456), 
+        taskName: title,
+        assigneeId: parseInt(owner),
+        projectId: parseInt(idDetail),
+        asignDate: startDate,
+        dueDate: dueDate,
+        priority: priority,
+        progress: progress,
+        status: status
+    };
+
+    tasks.push(newTask);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    // Đóng modal và reset form
+    document.getElementById("taskPopup").style.display = "none";
+    clearTaskForm();
+
+    // Gọi hàm showList() để cập nhật giao diện nhiệm vụ (nếu đã có hàm này)
+    if (typeof showList === "function") {
+        showList();
+    }
+}
+
+
 // Chuyển trang sang trang đăng nhập
 document.getElementById("logoutBtn").addEventListener("click", function () {
     window.location.href = "login.html";
 });
 
-// Mở modal sửa nhiệm vụ
-function openEditModal() {
-    const modal = document.getElementById("taskModal");
-    modal.style.display = "flex";
-}
+
+
 // Mở modal xóa nhiệm vụ
-function openDeleteModal() {
+function openDeleteModal(taskId) {
+    console.log("openDeleteModal được gọi với ID:", taskId);
+    taskIdToDelete = taskId;
     const deletePopup = document.querySelector(".delete-task-popup");
     deletePopup.classList.add("show");
 }
 
-// Đóng modal sửa và xóa nhiệm vụ
-document.addEventListener("DOMContentLoaded", function () {
-    const modal = document.getElementById("taskModal");
-    const closeBtn = document.querySelector(".close");
-    const cancelBtn = document.querySelector(".cancel-btn");
+function confirmDeleteTask() {
+    if (taskIdToDelete !== null) {
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        const index = tasks.findIndex(task => task.id == taskIdToDelete);
 
-    closeBtn.addEventListener("click", function () {
-        modal.style.display = "none";
-    });
-
-    cancelBtn.addEventListener("click", function () {
-        modal.style.display = "none";
-    });
-
-    const deletePopup = document.querySelector(".delete-task-popup");
-    const cancelDeleteBtn = document.querySelector(".cancel-delete-task-btn");
-    const closeDeleteBtn = document.querySelector(".close-delete-task-popup");
-
-    closeDeleteBtn.addEventListener("click", function () {
-        deletePopup.classList.remove("show");
-    });
-
-    cancelDeleteBtn.addEventListener("click", function () {
-        deletePopup.classList.remove("show");
-    });
-
-    window.addEventListener("click", function (e) {
-        if (e.target === deletePopup) {
-            deletePopup.classList.remove("show");
+        if (index !== -1) {
+            tasks.splice(index, 1);
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+           
         }
-    });
-});
+
+        closeDeleteModal();
+        showList();
+        taskIdToDelete = null;
+    }
+}
+
+// Hàm đóng popup xác nhận xóa nhiệm vụ
+function closeDeleteModal() {
+    const deletePopup = document.querySelector(".delete-task-popup");
+    deletePopup.classList.remove("show");
+}
+
+// Mở modal sửa nhiệm vụ
+function openEditModal(taskId) {
+    taskIdToEdit = taskId;
+
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const task = tasks.find(t => t.id === taskId);
+    if (!task) return;
+    populateEditTaskOwnerOptions();
+    document.getElementById("taskName").value = task.taskName;
+    document.getElementById("assignedTo").value = task.assigneeId;
+    document.getElementById("status").value = task.status;
+    document.getElementById("startDate").value = task.asignDate;
+    document.getElementById("dueDate").value = task.dueDate;
+    document.getElementById("priority").value = task.priority;
+    document.getElementById("progress").value = task.progress;
+
+    document.getElementById("taskModal").style.display = "flex";
+}
+
+// Hàm đổ danh sách người phụ trách vào select "assignedTo" trong modal sửa
+function populateEditTaskOwnerOptions() {
+    const assignedToSelect = document.getElementById("assignedTo");
+
+    // Xóa hết option cũ và thêm option mặc định
+    assignedToSelect.innerHTML = '<option value="">Chọn người phụ trách</option>';
+
+    // Lấy ID project hiện tại từ localStorage (key: "key_detail")
+    const projectId = localStorage.getItem("key_detail");
+    const projects = JSON.parse(localStorage.getItem("projects")) || [];
+    const currentProject = projects.find(project => project.id == projectId);
+
+    // Nếu tìm thấy project và có danh sách thành viên
+    if (currentProject && Array.isArray(currentProject.members)) {
+        currentProject.members.forEach(function (member) {
+            const option = document.createElement("option");
+            option.value = member.userId;         // Gán userId vào value
+            option.textContent = member.fullName; // Gán tên hiển thị
+            assignedToSelect.appendChild(option);
+        });
+    }
+}
 
 
+// Hàm đóng modal sửa nhiệm vụ
+function closeEditModal() {
+    const modal = document.getElementById("taskModal");
+    modal.style.display = "none";
+}
+// Confirm sửa nhiệm vụ
+function confirmEdit() {
+    const taskName = document.getElementById("taskName").value;
+    const assigneeId = parseInt(document.getElementById("assignedTo").value);
+    const status = document.getElementById("status").value;
+    const startDate = document.getElementById("startDate").value;
+    const dueDate = document.getElementById("dueDate").value;
+    const priority = document.getElementById("priority").value;
+    const progress = document.getElementById("progress").value;
+
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const index = tasks.findIndex(t => t.id === taskIdToEdit);
+    if (index !== -1) {
+        tasks[index] = {
+            ...tasks[index],
+            taskName,
+            assigneeId,
+            status,
+            asignDate: startDate,
+            dueDate,
+            priority,
+            progress
+        };
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        closeEditModal(); // Đóng modal sau khi lưu
+        showList(); // Cập nhật lại danh sách nếu có
+    }
+}
 
 
 // Modal thêm thành viên
@@ -104,9 +430,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Ham render
+// Lấy id của  project
 let idDetail = localStorage.getItem("key_detail");
 
+// Hiển thị tên dự án và tên mô tả dự án
 function renderList() {
     let filterProject = projects.find((e) => e.id == idDetail)
     console.log(filterProject);
@@ -165,6 +492,7 @@ renderList();
 
 // localStorage.setItem("tasks", JSON.stringify(tasks));
 
+// Hiển thị danh sách task
 function showList() {
 
     // Lấy dữ liệu từ localStorage
@@ -216,6 +544,7 @@ function showList() {
             let progressClass = "";
             if (task.progress === "Trễ hạn") progressClass = "red";
             else if (task.progress === "Có rủi ro") progressClass = "yellow";
+            else if (task.progress === "Có rủi ro") progressClass = "yellow";
             else progressClass = "green";
 
             // Chuyển ngày về dạng MM-DD
@@ -236,8 +565,8 @@ function showList() {
                     <td class="center">${formatDate(task.dueDate)}</td>
                     <td class="center"><button class="${progressClass}">${task.progress}</button></td>
                     <td class="center">
-                        <button class="edit-btn" onclick="openEditModal()">Sửa</button>
-                        <button class="delete-task-btn" onclick="openDeleteModal()">Xóa</button>
+                        <button class="edit-btn" onclick="openEditModal(${task.id})">Sửa</button>
+                        <button class="delete-task-btn" onclick="openDeleteModal(${task.id})">Xóa</button>
                     </td>
                 </tr>
             `;
@@ -247,6 +576,5 @@ function showList() {
 
 // Gọi hàm khi trang load
 document.addEventListener("DOMContentLoaded", showList);
-
 showList();
 

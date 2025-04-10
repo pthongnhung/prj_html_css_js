@@ -189,7 +189,6 @@ renderList();
 // Hàm mở modal chỉnh sửa
 let editingProjectId = null;
 function openEditModal(projectId) {
-    console.log(1111, projectId);
 
     const projects = JSON.parse(localStorage.getItem("projects")) || [];
     const project = projects.find(p => p.id === projectId);
@@ -396,12 +395,26 @@ function saveProject() {
     const ownedProjects = projects.filter(project =>
         project.members.some(member => member.userId === userId && member.role === "Project owner")
     );
+
     const isDuplicate = ownedProjects.some(project =>
         project.projectName.toLowerCase() === projectName.toLowerCase()
     );
     if (isDuplicate) {
         errorText.innerText = "Tên danh mục đã tồn tại.";
         isValid = false;
+    }
+
+    // Lấy dự án đầu tiên mà người dùng đang sở hữu
+    const firstProject = ownedProjects[0];
+
+    // Tìm thành viên có vai trò là "Project owner" trong dự án đó
+    let fullName = "Không rõ tên"; // Giá trị mặc định nếu không tìm thấy
+
+    if (firstProject && Array.isArray(firstProject.members)) {
+        const owner = firstProject.members.find(member => member.role === "Project owner");
+        if (owner) {
+            fullName = owner.fullName;
+        }
     }
 
     // Nếu không hợp lệ thì thoát
@@ -413,7 +426,7 @@ function saveProject() {
         projectName: projectName,
         description: description,
         members: [
-            { userId: userId, role: "Project owner" }
+            { userId: userId, fullName:fullName, role: "Project owner" },
         ]
     };
 
