@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Quản lí nhiệm vụ cá nhân</title>
+    <link rel="stylesheet" href="../css/myTask.css">
+</head>
+
+<body>
+    <div class="form">
+        <div class="container">
+            <div class="header">
+                <div class="header-container">
+                    <div class="header-left">Quản lý dự án</div>
+                    <div class="header-right">
+                        <div><a href="#" id="project">Dự án</a></div>
+                        <div><a href="">Nhiệm vụ của tôi</a></div>
+                        <div><a href="#" id="logoutBtn">Đăng xuất</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="main">
+                <div class="main-top">
+                    <div class="container-left">
+                        <h3 id="projectName">Xây dựng website thương mại điện tử</h3>
+
+                    </div>
+                    <div class="container-right">
+                        <div class="line3">
+                            <select name="" id="">
+                                <option value="">Sắp xếp theo</option>
+                            </select>
+                            <input type="text" placeholder="Tìm kiếm nhiệm vụ">
+                        </div>
+                    </div>
+                </div>
+                <div class="main-bottom">
+                    <h3>Danh sách nhiệm vụ</h3>
+                    <table border="1" cellpadding="10px" height="500px">
+                        <thead class="title">
+                            <tr>
+                                <th>Tên nhiệm vụ</th>
+                                <th>Trạng thái</th>
+                                <th>Ưu tiên</th>
+                                <th>Ngày bắt đầu</th>
+                                <th>Hạn chót</th>
+                                <th>Tiến độ</th>
+                            </tr>
+                        </thead>
+                        <tbody class="taskList">
+                            <tr>
+                                <td colspan="7">
+                                    <img src="../assets/1.png" alt=""> <span><b>Xây dựng website thương mại điện
+                                            tử</b></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Soạn thảo đề cương dự án</td>
+                                <td class="center">In progress✏️</td>
+                                <td class="center"><button class="blue">Thấp</button></td>
+                                <td class="center">02-24</td>
+                                <td class="center">02-27</td>
+                                <td class="center"><button class="green">Đúng tiến độ</button></td>
+
+                            </tr>
+                            <tr>
+                                <td>Soạn thảo đề cương dự án</td>
+                                <td class="center">In progress✏️</td>
+                                <td class="center "><button class="yellow">Trung bình</button></td>
+                                <td class="center">02-24</td>
+                                <td class="center">02-27</td>
+                                <td class="center"><button class="yellow">Có rủi ro</button></td>
+
+                            </tr>
+                            <tr>
+                                <td>Soạn thảo đề cương dự án</td>
+                                <td class="center">In progress✏️</td>
+                                <td class="center "><button class="red">Cao</button></td>
+                                <td class="center">02-24</td>
+                                <td class="center">02-27</td>
+                                <td class="center"><button class="red">Trễ hạn</button></td>
+
+                            </tr>
+                            <tr>
+                                <td colspan="7"><img src="../assets/1.png" alt=""><span><b>Phát triển ứng dụng di
+                                            động</b></span></td>
+                            </tr>
+                            <tr>
+                                <td>Lên lịch họp kickoff</td>
+                                <td class="center">In progress✏️</td>
+                                <td class="center "><button class="yellow">Trung bình</button></td>
+                                <td class="center">02-24</td>
+                                <td class="center">02-27</td>
+                                <td class="center"><button class="yellow">Có rủi ro</button></td>
+
+                            </tr>
+                            <tr>
+                                <td colspan="7"><img src="../assets/2.png" alt=""><span><b>Quản lí dữ liệu khách
+                                            hàng</b>
+                                    </span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="footer">
+                <p>&copy; Quản Lý Dự Án Nhóm. All rights reserved</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Chuyển sang trang đăng nhập
+        document.getElementById("logoutBtn").addEventListener("click", function () {
+            window.location = "login.html"
+        })
+        //  Chuyển sang trang quản lí dự án
+            document.getElementById("project").addEventListener("click", function () {
+                window.location = "manager-prj.html";
+            })
+    </script>
+</body>

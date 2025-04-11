@@ -225,6 +225,8 @@ function confirmEdit() {
     const projectNameInput = document.getElementById("projectName");
     const descriptionInput = document.getElementById("projectDescription");
     const errorText = document.querySelector(".error-message");
+    const errorTextt = document.querySelector(".error-messagee");
+
 
     const newName = projectNameInput.value.trim();
     const newDesc = descriptionInput.value.trim();
@@ -234,8 +236,12 @@ function confirmEdit() {
     errorText.innerText = "";
 
     // Kiểm tra rỗng
-    if (newName === "" || newDesc === "") {
-        errorText.innerText = "Tên và mô tả dự án không được để trống.";
+    if (newName === "") {
+        errorText.innerText = "Tên dự án không được để trống.";
+        isValid = false;
+    }
+    else if ( newDesc === "") {
+        errorTextt.innerText = "Mô tả dự án không được để trống.";
         isValid = false;
     }
 
@@ -247,7 +253,7 @@ function confirmEdit() {
 
     // Kiểm tra độ dài mô tả
     else if (newDesc.length < 10 || newDesc.length > 50) {
-        errorText.innerText = "Mô tả phải từ 10 đến 50 ký tự.";
+        errorTextt.innerText = "Mô tả phải từ 10 đến 50 ký tự.";
         isValid = false;
     }
 
@@ -483,4 +489,10 @@ function searchPrj() {
 
     }
 }
+
+//  Chuyển sang trang nhiệm vụ cá nhân
+document.getElementById("myTask").addEventListener("click", function () {
+    window.location = "myTask.html"
+})
+
 

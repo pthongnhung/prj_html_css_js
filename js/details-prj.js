@@ -206,8 +206,7 @@ function handleSaveTask() {
         showTaskError(titleErrorId, "Tên nhiệm vụ phải từ 3 đến 50 ký tự");
         valid = false;
     } else if (tasks.some(task => tasks.some(task =>
-        task.title &&
-        task.title.toLowerCase() === title.toLowerCase() &&
+        task.taskName.toLowerCase() === title.toLowerCase() &&
         task.projectId == idDetail
     ))) {
         console.log(tasks);
@@ -578,3 +577,12 @@ function showList() {
 document.addEventListener("DOMContentLoaded", showList);
 showList();
 
+//  Chuyển sang trang nhiệm vụ cá nhân
+document.getElementById("myTask").addEventListener("click", function () {
+    window.location="myTask.html"
+})
+
+//  Chuyển sang trang quản lí dự án
+document.getElementById("project").addEventListener("click", function () {
+    window.location = "manager-prj.html";
+})

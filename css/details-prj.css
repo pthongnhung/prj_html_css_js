@@ -190,6 +190,7 @@ table {
     border: 6px;
     padding: 6px;
     color: #FFFFFF;
+    border-radius: 8px;
 }
 
 .yellow {
@@ -198,6 +199,7 @@ table {
     border: 6px;
     padding: 6px;
     color: #FFFFFF;
+    border-radius: 8px;
 }
 
 .red {
@@ -206,6 +208,7 @@ table {
     border: 6px;
     padding: 6px;
     color: #FFFFFF;
+    border-radius: 8px;
 }
 .green {
     background-color: #198754;
@@ -213,6 +216,7 @@ table {
     border: 6px;
     padding: 6px;
     color: #FFFFFF;
+    border-radius: 8px;
 }
 
 .footer {
@@ -228,6 +232,7 @@ table {
     align-items: center;
 }
 
+/* Modal sửa nhiệm vụ */
 .modal {
     display: none;
     position: fixed;

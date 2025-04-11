@@ -117,7 +117,9 @@ table {
 .center {
     text-align: center;
 }
-
+thead{
+    background-color: #dddddd;
+}
 /* Thanh điều hướng chuyển trang */
 .pagination {
     width: 1920px;
@@ -226,6 +228,11 @@ button:disabled {
 }
 
 .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 3px;
+}
+.error-messagee {
     color: red;
     font-size: 12px;
     margin-top: 3px;

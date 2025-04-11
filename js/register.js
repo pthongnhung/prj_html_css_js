@@ -95,4 +95,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Chuyển sang trang đăng nhập
+document.getElementById("loginBtn").addEventListener("click", function () {
+    window.location = "login.html";
+})
+
+
 

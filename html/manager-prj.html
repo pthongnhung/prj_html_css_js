@@ -14,7 +14,7 @@
         <div class="header-left">Quản lý dự án</div>
         <div class="header-right">
             <div><a href="">Dự án</a></div>
-            <div><a href="">Nhiệm vụ của tôi</a></div>
+            <div><a href="#" id="myTask">Nhiệm vụ của tôi</a></div>
             <div><a href="#" id="logoutBtn">Đăng xuất</a></div>
         </div>
     </div>
@@ -142,10 +142,12 @@
             <div class="modal-body">
                 <label for="projectName">Tên dự án</label>
                 <input type="text" id="projectName" class="projectName" placeholder="Nhập tên dự án">
-                <p class="error-message">Tên danh mục đã tồn tại</p>
+                <p class="error-message"></p>
 
                 <label for="projectDescription">Mô tả dự án</label>
                 <textarea id="projectDescription" placeholder="Nhập mô tả"></textarea>
+                <p class="error-messagee"></p>
+
             </div>
             <div class="modal-footer">
                 <button class="cancel-btn" onclick="closeEditModal()">Hủy</button>
