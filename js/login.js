@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let isValid = false;
         e.preventDefault();
 
-        error.textContent = ""; // Xóa lỗi cũ trước khi kiểm tra
+        error.textContent = ""; 
 
         let acc = {
             email: email.value.trim(),

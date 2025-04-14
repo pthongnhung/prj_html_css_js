@@ -2,16 +2,13 @@ let projects = JSON.parse(localStorage.getItem("projects")) || []
 
 // Modal thêm nhiệm vụ
 document.addEventListener("DOMContentLoaded", function () {
-    // Giả sử có nút mở modal thêm nhiệm vụ với id "btnAddTask"
     const btnAddTask = document.getElementById("btnAddTask");
     const taskPopup = document.getElementById("taskPopup");
     const closePopupBtn = document.querySelector(".close-popup");
     const dismissBtn = document.querySelector(".dismiss-btn");
 
-    // Mở modal khi nhấn nút Thêm nhiệm vụ
     if (btnAddTask) {
         btnAddTask.onclick = function () {
-            // Nếu cần, bạn có thể gọi hàm populateTaskOwnerOptions() để đổ danh sách người phụ trách
             populateTaskOwnerOptions();
             taskPopup.style.display = "flex";
         };
@@ -27,17 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
         clearTaskForm();
     };
 
-    // Đóng modal nếu nhấn ra ngoài vùng modal
-    window.onclick = function (event) {
-        if (event.target === taskPopup) {
-            taskPopup.style.display = "none";
-            clearTaskForm();
-        }
-    };
 });
 
 // Hàm đổ danh sách người phụ trách vào select "taskOwner"
-// Lấy danh sách member từ project hiện tại (dựa vào key_detail lưu trong localStorage)
 function populateTaskOwnerOptions() {
     const taskOwnerSelect = document.getElementById("taskOwner");
     // Xóa các option cũ và thêm option mặc định
@@ -58,7 +47,7 @@ function populateTaskOwnerOptions() {
     }
 }
 
-// Hàm hiển thị lỗi cho trường cụ thể
+// Hàm hiển thị lỗi 
 function showTaskError(elementId, message) {
     const el = document.getElementById(elementId);
     if (el) {
@@ -88,7 +77,6 @@ function clearTaskForm() {
 }
 
 // Hàm xử lý lưu nhiệm vụ mới khi nhấn "Lưu"
-// Khi trang load xong
 document.addEventListener("DOMContentLoaded", function () {
     // Giả sử có nút mở modal thêm nhiệm vụ với id "btnAddTask"
     const btnAddTask = document.getElementById("btnAddTask");
@@ -96,16 +84,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const closePopupBtn = document.querySelector(".close-popup");
     const dismissBtn = document.querySelector(".dismiss-btn");
 
-    // Mở modal khi nhấn nút Thêm nhiệm vụ
     if (btnAddTask) {
         btnAddTask.onclick = function () {
-            // Nếu cần, bạn có thể gọi hàm populateTaskOwnerOptions() để đổ danh sách người phụ trách
             populateTaskOwnerOptions();
             taskPopup.style.display = "flex";
         };
     }
-
-    // Đóng modal khi nhấn nút "X" hoặc "Hủy"
     closePopupBtn.onclick = function () {
         taskPopup.style.display = "none";
         clearTaskForm();
@@ -121,10 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Hàm đổ danh sách người phụ trách vào select "taskOwner"
 function populateTaskOwnerOptions() {
     const taskOwnerSelect = document.getElementById("taskOwner");
-    // Xóa các option cũ và thêm option mặc định
     taskOwnerSelect.innerHTML = '<option value="">Chọn người phụ trách</option>';
-
-    // Lấy id dự án hiện tại từ localStorage (giả sử lưu với key "key_detail")
     const projectId = localStorage.getItem("key_detail");
     const projects = JSON.parse(localStorage.getItem("projects")) || [];
     const currentProject = projects.find(project => project.id == projectId);
@@ -346,18 +327,15 @@ function populateEditTaskOwnerOptions() {
 
     // Xóa hết option cũ và thêm option mặc định
     assignedToSelect.innerHTML = '<option value="">Chọn người phụ trách</option>';
-
-    // Lấy ID project hiện tại từ localStorage (key: "key_detail")
-    const projectId = localStorage.getItem("key_detail");
     const projects = JSON.parse(localStorage.getItem("projects")) || [];
-    const currentProject = projects.find(project => project.id == projectId);
+    const currentProject = projects.find(project => project.id == idDetail);
 
     // Nếu tìm thấy project và có danh sách thành viên
     if (currentProject && Array.isArray(currentProject.members)) {
         currentProject.members.forEach(function (member) {
             const option = document.createElement("option");
-            option.value = member.userId;         // Gán userId vào value
-            option.textContent = member.fullName; // Gán tên hiển thị
+            option.value = member.userId;        
+            option.textContent = member.fullName; 
             assignedToSelect.appendChild(option);
         });
     }
@@ -393,8 +371,8 @@ function confirmEdit() {
             progress
         };
         localStorage.setItem("tasks", JSON.stringify(tasks));
-        closeEditModal(); // Đóng modal sau khi lưu
-        showList(); // Cập nhật lại danh sách nếu có
+        closeEditModal(); 
+        showList(); 
     }
 }
 
@@ -406,27 +384,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const btnClose = document.querySelector(".btn-close");
     const btnCancel = document.querySelector(".btn-cancel");
 
-    // Hiển thị modal
     btnAddMember.addEventListener("click", function () {
         memberModal.classList.add("show");
     });
 
-    // Ẩn modal khi nhấn vào nút X
     btnClose.addEventListener("click", function () {
         memberModal.classList.remove("show");
     });
 
-    // Ẩn modal khi nhấn nút "Huỷ"
     btnCancel.addEventListener("click", function () {
         memberModal.classList.remove("show");
     });
 
-    // Ẩn modal khi nhấn ra ngoài
-    window.addEventListener("click", function (event) {
-        if (event.target === memberModal) {
-            memberModal.classList.remove("show");
-        }
-    });
 });
 
 // Lấy id của  project
@@ -494,29 +463,23 @@ renderList();
 // Hiển thị danh sách task
 function showList() {
 
-    // Lấy dữ liệu từ localStorage
     const projects = JSON.parse(localStorage.getItem("projects")) || [];
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-    // Tìm project hiện tại
     const currentProject = projects.find(p => p.id == idDetail);
     if (!currentProject) {
         console.error("Không tìm thấy dự án");
         return;
     }
 
-    // Lọc các task thuộc project đó
     const filteredTasks = tasks.filter(task => task.projectId == idDetail);
-
-    // Lấy phần tử hiển thị task
+   
     const taskListElement = document.querySelector(".taskList");
-    taskListElement.innerHTML = ""; // Xóa nội dung cũ
+    taskListElement.innerHTML = ""; 
 
-    // Gom theo status
     const statusGroups = ["To do", "In progress", "Pending", "Done"];
 
     statusGroups.forEach(status => {
-        // Tiêu đề nhóm task
         taskListElement.innerHTML += `
             <tr>
                 <td colspan="7">
@@ -525,21 +488,17 @@ function showList() {
             </tr>
         `;
 
-        // Lọc task theo status
         const groupTasks = filteredTasks.filter(task => task.status === status);
 
         groupTasks.forEach(task => {
-            // Tìm người phụ trách trong danh sách members của project
             const member = currentProject.members.find(m => m.userId === task.assigneeId);
             const assigneeName = member && member.fullName ? member.fullName : "Không rõ";
 
-            // Gán class màu theo priority
             let priorityClass = "";
             if (task.priority === "Cao") priorityClass = "red";
             else if (task.priority === "Trung bình") priorityClass = "yellow";
             else priorityClass = "blue";
 
-            // Gán class màu theo progress
             let progressClass = "";
             if (task.progress === "Trễ hạn") progressClass = "red";
             else if (task.progress === "Có rủi ro") progressClass = "yellow";
@@ -554,7 +513,6 @@ function showList() {
                 return `${month}-${day}`;
             };
 
-            // Thêm dòng task vào HTML
             taskListElement.innerHTML += `
                 <tr>
                     <td>${task.taskName}</td>
