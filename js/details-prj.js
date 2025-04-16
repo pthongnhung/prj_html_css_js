@@ -26,81 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-// Hàm đổ danh sách người phụ trách vào select "taskOwner"
-function populateTaskOwnerOptions() {
-    const taskOwnerSelect = document.getElementById("taskOwner");
-    // Xóa các option cũ và thêm option mặc định
-    taskOwnerSelect.innerHTML = '<option value="">Chọn người phụ trách</option>';
-
-    // Lấy id dự án hiện tại từ localStorage (giả sử lưu với key "key_detail")
-    const projectId = localStorage.getItem("key_detail");
-    const projects = JSON.parse(localStorage.getItem("projects")) || [];
-    const currentProject = projects.find(project => project.id == projectId);
-
-    if (currentProject && Array.isArray(currentProject.members)) {
-        currentProject.members.forEach(function (member) {
-            const option = document.createElement("option");
-            option.value = member.userId;         // Dùng userId làm giá trị
-            option.textContent = member.fullName;   // Hiển thị tên đầy đủ
-            taskOwnerSelect.appendChild(option);
-        });
-    }
-}
-
-// Hàm hiển thị lỗi 
-function showTaskError(elementId, message) {
-    const el = document.getElementById(elementId);
-    if (el) {
-        el.innerText = message;
-        el.style.display = "block";
-    }
-}
-
-// Hàm ẩn tất cả lỗi
-function hideAllTaskErrors() {
-    const errors = document.querySelectorAll(".error-text");
-    errors.forEach(function (el) {
-        el.style.display = "none";
-    });
-}
-
-// Hàm reset form thêm nhiệm vụ
-function clearTaskForm() {
-    document.getElementById("taskTitle").value = "";
-    document.getElementById("taskOwner").value = "";
-    document.getElementById("taskStatus").value = "";
-    document.getElementById("taskStartDate").value = "";
-    document.getElementById("taskDueDate").value = "";
-    document.getElementById("taskPriority").value = "";
-    document.getElementById("taskProgress").value = "";
-    hideAllTaskErrors();
-}
-
-// Hàm xử lý lưu nhiệm vụ mới khi nhấn "Lưu"
-document.addEventListener("DOMContentLoaded", function () {
-    // Giả sử có nút mở modal thêm nhiệm vụ với id "btnAddTask"
-    const btnAddTask = document.getElementById("btnAddTask");
-    const taskPopup = document.getElementById("taskPopup");
-    const closePopupBtn = document.querySelector(".close-popup");
-    const dismissBtn = document.querySelector(".dismiss-btn");
-
-    if (btnAddTask) {
-        btnAddTask.onclick = function () {
-            populateTaskOwnerOptions();
-            taskPopup.style.display = "flex";
-        };
-    }
-    closePopupBtn.onclick = function () {
-        taskPopup.style.display = "none";
-        clearTaskForm();
-    };
-    dismissBtn.onclick = function () {
-        taskPopup.style.display = "none";
-        clearTaskForm();
-    };
-
-   
-});
 
 // Hàm đổ danh sách người phụ trách vào select "taskOwner"
 function populateTaskOwnerOptions() {
@@ -177,14 +102,14 @@ function handleSaveTask() {
 
     // Lấy danh sách nhiệm vụ hiện có
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-   
+
 
     // Kiểm tra tên nhiệm vụ
     if (title === "") {
         showTaskError(titleErrorId, "Tên nhiệm vụ không được để trống");
         valid = false;
     } else if (title.length < 3 || title.length > 50) {
-        showTaskError(titleErrorId, "Tên nhiệm vụ phải từ 3 đến 50 ký tự");
+        showTaskError(titleErrorId, "Tên nhiệm vụ phải từ 5 đến 50 ký tự");
         valid = false;
     } else if (tasks.some(task => tasks.some(task =>
         task.taskName.toLowerCase() === title.toLowerCase() &&
@@ -239,7 +164,7 @@ function handleSaveTask() {
 
     // Nếu hợp lệ, tạo nhiệm vụ mới
     const newTask = {
-        id: Math.floor(Math.random() * 3456), 
+        id: Math.floor(Math.random() * 3456),
         taskName: title,
         assigneeId: parseInt(owner),
         projectId: parseInt(idDetail),
@@ -287,7 +212,7 @@ function confirmDeleteTask() {
         if (index !== -1) {
             tasks.splice(index, 1);
             localStorage.setItem("tasks", JSON.stringify(tasks));
-           
+
         }
 
         closeDeleteModal();
@@ -334,8 +259,8 @@ function populateEditTaskOwnerOptions() {
     if (currentProject && Array.isArray(currentProject.members)) {
         currentProject.members.forEach(function (member) {
             const option = document.createElement("option");
-            option.value = member.userId;        
-            option.textContent = member.fullName; 
+            option.value = member.userId;
+            option.textContent = member.fullName;
             assignedToSelect.appendChild(option);
         });
     }
@@ -371,8 +296,8 @@ function confirmEdit() {
             progress
         };
         localStorage.setItem("tasks", JSON.stringify(tasks));
-        closeEditModal(); 
-        showList(); 
+        closeEditModal();
+        showList();
     }
 }
 
@@ -473,9 +398,9 @@ function showList() {
     }
 
     const filteredTasks = tasks.filter(task => task.projectId == idDetail);
-   
+
     const taskListElement = document.querySelector(".taskList");
-    taskListElement.innerHTML = ""; 
+    taskListElement.innerHTML = "";
 
     const statusGroups = ["To do", "In progress", "Pending", "Done"];
 
@@ -531,13 +456,90 @@ function showList() {
     });
 }
 
+// Tim kiem nhiem vu
+function searchTask() {
+    const searchValue = document.getElementById("searchTask").value.toLowerCase().trim();
+
+    const projects = JSON.parse(localStorage.getItem("projects")) || [];
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    const currentProject = projects.find(p => p.id == idDetail);
+   
+
+    const projectTasks = tasks.filter(task =>
+        task.projectId == idDetail &&
+        task.taskName.toLowerCase().includes(searchValue)
+    );
+
+    const taskListElement = document.querySelector(".taskList");
+    taskListElement.innerHTML = "";
+
+    if (projectTasks.length === 0) {
+        taskListElement.innerHTML = "<tr><td colspan='7' class='center'>Không tìm thấy nhiệm vụ nào.</td></tr>";
+        return;
+    }
+
+    const statusGroups = ["To do", "In progress", "Pending", "Done"];
+
+    const formatDate = (dateStr) => {
+        const d = new Date(dateStr);
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        return `${month}-${day}`;
+    };
+
+    statusGroups.forEach(status => {
+        taskListElement.innerHTML += `
+            <tr>
+                <td colspan="7">
+                    <img src="../assets/1.png" alt=""> <span><b>${status}</b></span>
+                </td>
+            </tr>
+        `;
+
+        const groupTasks = projectTasks.filter(task => task.status === status);
+
+        groupTasks.forEach(task => {
+            const member = currentProject.members.find(m => m.userId === task.assigneeId);
+            const assigneeName = member && member.fullName ? member.fullName : "Không rõ";
+
+            let priorityClass = "";
+            if (task.priority === "Cao") priorityClass = "red";
+            else if (task.priority === "Trung bình") priorityClass = "yellow";
+            else priorityClass = "blue";
+
+            let progressClass = "";
+            if (task.progress === "Trễ hạn") progressClass = "red";
+            else if (task.progress === "Có rủi ro") progressClass = "yellow";
+            else progressClass = "green";
+
+            taskListElement.innerHTML += `
+                <tr>
+                    <td>${task.taskName}</td>
+                    <td class="center">${assigneeName}</td>
+                    <td class="center"><button class="${priorityClass}">${task.priority}</button></td>
+                    <td class="center">${formatDate(task.asignDate)}</td>
+                    <td class="center">${formatDate(task.dueDate)}</td>
+                    <td class="center"><button class="${progressClass}">${task.progress}</button></td>
+                    <td class="center">
+                        <button class="edit-btn" onclick="openEditModal(${task.id})">Sửa</button>
+                        <button class="delete-task-btn" onclick="openDeleteModal(${task.id})">Xóa</button>
+                    </td>
+                </tr>
+            `;
+        });
+    });
+}
+
+
+
 // Gọi hàm khi trang load
 document.addEventListener("DOMContentLoaded", showList);
 showList();
 
 //  Chuyển sang trang nhiệm vụ cá nhân
 document.getElementById("myTask").addEventListener("click", function () {
-    window.location="myTask.html"
+    window.location = "myTask.html"
 })
 
 //  Chuyển sang trang quản lí dự án

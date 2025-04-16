@@ -58,10 +58,12 @@
                             <div><img src="../assets/Button+BackgroundColor.png" alt=""></div>
                         </div>
                         <div class="line3">
-                            <select name="" id="">
+                            <select name="" id="sortSelect">
                                 <option value="">Sắp xếp theo</option>
+                                <option value="dueDate">Hạn chót</option>
+                                <option value="priority">Độ ưu tiên</option>
                             </select>
-                            <input type="text" placeholder="Tìm kiếm nhiệm vụ">
+                            <input type="text" placeholder="Tìm kiếm nhiệm vụ" id="searchTask" oninput="searchTask() ">
                         </div>
                     </div>
                 </div>
