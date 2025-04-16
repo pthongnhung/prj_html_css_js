@@ -59,7 +59,7 @@
                             </tr>
                             <tr>
                                 <td>Soạn thảo đề cương dự án</td>
-                                <td class="center">In progress✏️</td>
+                                <td class="center" onclick="openUpdateStatusModal()">In progress✏️</td>
                                 <td class="center"><button class="blue">Thấp</button></td>
                                 <td class="center">02-24</td>
                                 <td class="center">02-27</td>
@@ -68,7 +68,7 @@
                             </tr>
                             <tr>
                                 <td>Soạn thảo đề cương dự án</td>
-                                <td class="center">In progress✏️</td>
+                                <td class="center" onclick="openUpdateStatusModal()">In progress✏️</td>
                                 <td class="center "><button class="yellow">Trung bình</button></td>
                                 <td class="center">02-24</td>
                                 <td class="center">02-27</td>
@@ -77,7 +77,7 @@
                             </tr>
                             <tr>
                                 <td>Soạn thảo đề cương dự án</td>
-                                <td class="center">In progress✏️</td>
+                                <td class="center" onclick="openUpdateStatusModal()">In progress✏️</td>
                                 <td class="center "><button class="red">Cao</button></td>
                                 <td class="center">02-24</td>
                                 <td class="center">02-27</td>
@@ -90,7 +90,7 @@
                             </tr>
                             <tr>
                                 <td>Lên lịch họp kickoff</td>
-                                <td class="center">In progress✏️</td>
+                                <td class="center" onclick="openUpdateStatusModal()">In progress✏️</td>
                                 <td class="center "><button class="yellow">Trung bình</button></td>
                                 <td class="center">02-24</td>
                                 <td class="center">02-27</td>
@@ -111,14 +111,45 @@
             </div>
         </div>
     </div>
+    <!-- Sửa trạng thái -->
+    <div id="updateStatusModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeUpdateStatusModal()">&times;</span>
+            <h2>Cập nhật trạng thái</h2>
+            <p>Xác nhận cập nhật trạng thái nhiệm vụ</p>
+            <div class="modal-actions">
+                <button class="cancel-btn" onclick="closeUpdateStatusModal()">Hủy</button>
+                <button class="confirm-btn" onclick="confirmUpdateStatus()">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Chuyển sang trang đăng nhập
         document.getElementById("logoutBtn").addEventListener("click", function () {
             window.location = "login.html"
         })
         //  Chuyển sang trang quản lí dự án
-            document.getElementById("project").addEventListener("click", function () {
-                window.location = "manager-prj.html";
-            })
+        document.getElementById("project").addEventListener("click", function () {
+            window.location = "manager-prj.html";
+        })
+
+        // Sửa trạng thái
+        function openUpdateStatusModal() {
+            document.getElementById("updateStatusModal").style.display = "block";
+        }
+
+        function closeUpdateStatusModal() {
+            document.getElementById("updateStatusModal").style.display = "none";
+        }
+
+        function confirmUpdateStatus() {
+            // Xử lý cập nhật trạng thái ở đây, ví dụ:
+            console.log("Cập nhật trạng thái cho task:", window.taskToUpdate);
+
+            // Đóng modal sau khi xác nhận
+            closeUpdateStatusModal();
+        }
+
     </script>
 </body>
